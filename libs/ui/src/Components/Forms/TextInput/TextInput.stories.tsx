@@ -8,7 +8,7 @@ const Story: Meta<typeof TextInput> = {
       <TextInput {...args} />
     </ChakraProvider>
   ),
-  title: 'Forms/TextInput',
+  title: 'Forms/Text Input',
 };
 
 export default Story;

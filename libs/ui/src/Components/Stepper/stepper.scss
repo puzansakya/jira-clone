@@ -1,0 +1,64 @@
+.stepper {
+  button:last-child:after {
+    display: none;
+  }
+
+  button {
+    position: relative;
+
+    &:focus {
+      background: none;
+    }
+
+    &:after {
+      position: absolute;
+      content: '';
+      width: calc(100% - 60px);
+      left: 50%;
+      top: 16px;
+      height: 3px;
+      background: #d5dadf;
+      border-radius: 25px;
+      margin-left: 30px;
+    }
+  }
+
+  &-tab {
+    &:disabled,
+    [disabled] {
+      border: none;
+      background: none !important;
+      opacity: 1 !important;
+    }
+
+    &.isactive,
+    &.iscompleted {
+      .stepper-icon {
+        background: #1677ff;
+        box-shadow: 0 0 0 4px #1677ff26;
+      }
+
+      .stepper-title {
+        color: #1677ff;
+      }
+    }
+
+    &.iscompleted {
+      &:after {
+        background: #1677ff !important;
+      }
+    }
+  }
+
+  &-title {
+    color: #b6bfc9;
+  }
+
+  &-list {
+    position: relative;
+  }
+
+  &-icon {
+    background: #cbd5e0;
+  }
+}

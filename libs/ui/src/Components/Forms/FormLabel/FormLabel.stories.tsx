@@ -10,7 +10,7 @@ const Story: Meta<typeof FormLabel> = {
       </ChakraProvider>
     );
   },
-  title: 'Forms/FormLabel',
+  title: 'Forms/Form Label',
 };
 export default Story;
 

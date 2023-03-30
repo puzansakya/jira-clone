@@ -11,7 +11,7 @@ import {
 
 // UTILITIES
 import isEmpty from 'lodash/isEmpty';
-import * as fromHelpers from './../../helpers';
+import * as fromHelpers from '../../../Helpers';
 
 // COMPONENTS
 import FormErrorLable from '../FormErrorLabel/FormErrorLabel';
@@ -101,7 +101,7 @@ export function TextInput(props: TextInputProps) {
    * THEN USER IS USING THIS COMPONENT OUTSIDE FORM
    * NORMALYY AS FILTER OR CUSTOM USE CASE
    */
-  const _ignoreControl = isEmpty(control) || ignoreControl;
+  const _ignoreControl = !control || ignoreControl;
   if (_ignoreControl) {
     return (
       <FormControl
@@ -154,10 +154,9 @@ export function TextInput(props: TextInputProps) {
                 field: { onChange: _onChange, value: _value },
               } = controllerProps;
               return (
-                <Input
+                <TextInputComponent
                   {...rest}
                   value={_value}
-                  name="Asdf"
                   onChangeRHF={_onChange}
                 />
               );
