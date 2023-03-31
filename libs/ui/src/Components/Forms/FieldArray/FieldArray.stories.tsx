@@ -10,7 +10,7 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react';
-import TextInput from '../TextInput/TextInput';
+import TextInput from '../InputText/InputText';
 
 const name = 'reviewDetails';
 

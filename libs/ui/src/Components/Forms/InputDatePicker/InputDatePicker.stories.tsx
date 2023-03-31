@@ -13,7 +13,7 @@ import { InputDatePicker } from './InputDatePicker';
 const Story: Meta<typeof InputDatePicker> = {
   component: () => (
     <ChakraProvider>
-      <InputDatePicker />
+      <InputDatePicker isNepali={true} />
     </ChakraProvider>
   ),
   title: 'DatePicker',

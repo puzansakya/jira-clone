@@ -114,7 +114,7 @@ export function TextInput(props: TextInputProps) {
       >
         <RenderWithLabelPosition
           labelPosition={labelPosition}
-          label={<FormLabel label={`${label} aa`} customLabel={customLabel} />}
+          label={<FormLabel label={`${label}`} customLabel={customLabel} />}
           inputComponent={<TextInputComponent {...rest} />}
         />
       </FormControl>

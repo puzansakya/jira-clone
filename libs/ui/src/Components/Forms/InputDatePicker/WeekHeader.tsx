@@ -2,7 +2,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import React from 'react';
 import useFlexGridMaker from '../../../Hooks/useFLexGridMaker/useFLexGridMaker';
 
-const Header = () => {
+const WeekHeader = () => {
   const { ROW_NEGATIVE_MARGIN, EACH_COL_WIDTH, GUTTER_WIDTH } =
     useFlexGridMaker();
 
@@ -39,4 +39,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default WeekHeader;

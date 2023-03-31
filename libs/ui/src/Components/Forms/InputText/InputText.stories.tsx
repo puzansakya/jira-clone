@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import { TextInput } from './TextInput';
+import { TextInput } from './InputText';
 
 const Story: Meta<typeof TextInput> = {
   component: (args) => (
