@@ -1,14 +1,9 @@
-import { ChakraProvider } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import { InputEditor } from './InputEditor';
+import { InputEditorUsuage } from './InputEditor';
 
-const Story: Meta<typeof InputEditor> = {
-  component: () => (
-    <ChakraProvider>
-      <InputEditor />
-    </ChakraProvider>
-  ),
-  title: 'Input Editor',
+const Story: Meta<typeof InputEditorUsuage> = {
+  component: () => <InputEditorUsuage />,
+  title: 'Forms/Input Editor',
 };
 export default Story;
 

@@ -10,7 +10,7 @@ import {
   List,
   ListItem,
 } from '@chakra-ui/react';
-import TextInput from '../InputText/InputText';
+import TextInput from '../InputText/_InputText';
 
 const name = 'reviewDetails';
 
@@ -208,7 +208,7 @@ const FAFIrst = () => {
                                     {...inputProps}
                                   />
                                   <TextInput
-                                    label="RatingScaleOptionId"
+                                    label="RatingScaleOption"
                                     type="number"
                                     required
                                     name={`${name}.${fieldIdx}.RatingScaleOptionId`}
@@ -225,7 +225,7 @@ const FAFIrst = () => {
                           <Flex gap={2}>
                             <Button
                               onClick={() =>
-                                append({ firstName: '', lastName: 'luo' })
+                                append({ Name: 'as', RatingScaleOptionId: 100 })
                               }
                             >
                               Append

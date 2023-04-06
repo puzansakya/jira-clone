@@ -24,7 +24,8 @@
       "executor": "@nrwl/vite:dev-server",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "jira-clone:build"
+        "buildTarget": "jira-clone:build",
+        "proxyConfig": "packages/jira-clone/proxy.conf.json"
       },
       "configurations": {
         "development": {

@@ -1,186 +1,352 @@
 // LIBS
+import React from 'react';
 import { Controller } from 'react-hook-form';
 
-// CHAKRA-UI
+// CHAKRA UI
 import {
+  Button,
+  ChakraProvider,
+  Container,
+  Flex,
   FormControl,
   FormHelperText,
   Input,
-  InputProps,
 } from '@chakra-ui/react';
 
 // UTILITIES
 import isEmpty from 'lodash/isEmpty';
+
+// HELPERS
 import * as fromHelpers from '../../../Helpers';
-
-// COMPONENTS
-import FormErrorLable from '../FormErrorLabel/FormErrorLabel';
-import FormLabel from '../FormLabel/FormLabel';
-import RenderWithLabelPosition from '../RenderWithLabelPosition/RenderWithLabelPosition';
-
-// FORM HELPERS;
 import * as fromFormHelpers from '../@form-helper';
 
+// COMPONENTS
+import ConnectForm from '../ConnectForm/ConnectForm';
+import FormErrorLable from '../FormErrorLabel/FormErrorLabel';
+import FormLabel from '../FormLabel/FormLabel';
+import FormProvider from '../FormProvider/FormProvider';
+
 /**
- * SOME TYPES ARE OMITTED BECAUSE IT EXISTS AND CONFLICTS WITH THE CHILD INTERFACE (TextInputComponentProps)
+ * 1. Define Context with default values
+ * 2. Define Parent Component
+ * 3. Define usable hook
+ * 4. Define required child component
+ * 5. Compose into default
+ * 6. export all
+ *
  */
-type TextInputComponentProps = Pick<
-  fromFormHelpers.BaseFormProps,
-  'name' | 'value' | 'onChangeRHF' | 'onChange'
-> &
-  InputProps;
 
-export const TextInputComponent = ({
-  name,
-  value,
-  onChange: _onChange,
-  onChangeRHF,
+// 1.
+const InputTextContext = React.createContext<any>({
+  label: 'Sample label',
+  control: undefined,
+  ignoreControl: false,
+  required: false,
+  showOptionalLabel: true,
+  errors: undefined,
+  rule: undefined,
+  width: undefined,
+  customLabel: undefined,
+  labelPosition: undefined,
+  errorMessage: undefined,
+});
+InputTextContext.displayName = 'InputTextContext';
+
+// 2.
+/**
+ * use with composition
+ *   <InputText
+      name="lastName"
+      label="Last Name"
+      required
+      control={control}
+      errors={errors}
+    >
+      <InputText.FormControl>
+        <Flex gap={2}>
+          <InputText.FormLabel />
+          <InputText.HelperText />
+        </Flex>
+        <InputText.ControllerComponent />
+        <InputText.ErrorLabel />
+      </InputText.FormControl>
+    </InputText>
+ * @param param0 
+ * @returns 
+ */
+export const InputText = ({
+  label,
+  control,
+  ignoreControl,
+  required = false,
+  showOptionalLabel,
+  errors,
+  rule,
+  width,
+  customLabel,
+  labelPosition,
+  errorMessage,
+  children,
   ...rest
-}: TextInputComponentProps) => {
-  const handleChange = (e: any) => {
-    const { value } = e.target;
-    _onChange?.(name, value);
-    onChangeRHF?.(value);
-  };
-
+}: any) => {
   return (
-    <Input
-      test-id="text-input"
-      value={value}
-      onChange={handleChange}
-      w="full"
-      bg="white"
-      {...rest}
-    />
+    <InputTextContext.Provider
+      value={{
+        label,
+        control,
+        ignoreControl,
+        required,
+        showOptionalLabel,
+        errors,
+        rule,
+        width,
+        customLabel,
+        labelPosition,
+        errorMessage,
+        ...rest,
+      }}
+    >
+      {children}
+    </InputTextContext.Provider>
   );
 };
 
-type TextInputProps = { width?: any } & Omit<
-  fromFormHelpers.BaseFormProps,
-  'onChange'
-> &
-  InputProps;
+interface ComponentProps extends Record<any, any> {
+  onChangeRHF?: any;
+  value?: any;
+}
 
-export function TextInput(props: TextInputProps) {
+const Component = ({ onChangeRHF, value, ...propsRest }: ComponentProps) => {
   const {
+    name,
+    onChange2,
     label,
     control,
-    ignoreControl = false,
-    required = false,
-    showOptionalLabel = true,
+    ignoreControl,
+    required,
+    showOptionalLabel,
     errors,
     rule,
     width,
     customLabel,
     labelPosition,
     errorMessage,
-    ...rest
-  } = props;
-  /**
-   * GET THE ERROR FROM ERRORS
-   * LATER USE TO DISPLAY ERROR
-   */
-  const error =
-    errorMessage ||
-    (errors &&
-      fromHelpers.resolveObjectValueByPath(errors, props.name)?.message);
+    value: userValue,
+  } = useInputText();
 
-  /**
-   * IF USER PASSES OWN RULE,
-   * MERGE THE RULE WITH DEFAULT RULE
-   * AND OVERWRITE IT
-   */
+  const handleChange = (e: any) => {
+    const { value } = e.target;
+    onChange2?.(name, value);
+    onChangeRHF?.(value);
+  };
+
+  return (
+    <Input
+      test-id="text-input"
+      value={value || userValue}
+      onChange={handleChange}
+      w="full"
+      bg="white"
+      {...propsRest}
+    />
+  );
+};
+
+const CustomControllerComponent = (props: any) => {
+  const { name, control, rule, required, ...rest } = useInputText();
+
   let _rule = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {
     _rule = fromHelpers.deepMerge(_rule, rule);
   }
 
-  /**
-   * IF NO CONTROL IS PROVIDED,
-   * THEN USER IS USING THIS COMPONENT OUTSIDE FORM
-   * NORMALYY AS FILTER OR CUSTOM USE CASE
-   */
-  const _ignoreControl = !control || ignoreControl;
-  if (_ignoreControl) {
-    return (
-      <FormControl
-        display="flex"
-        flexDirection="column"
-        gap={2}
-        id={props.name}
-        isRequired={required}
-        style={{ width }}
-      >
-        <RenderWithLabelPosition
-          labelPosition={labelPosition}
-          label={<FormLabel label={`${label}`} customLabel={customLabel} />}
-          inputComponent={<TextInputComponent {...rest} />}
-        />
-      </FormControl>
-    );
-  }
+  return (
+    <Controller
+      control={control}
+      name={name}
+      rules={_rule}
+      render={(controllerProps) => {
+        const {
+          field: { onChange: _onChange, value: _value },
+        } = controllerProps;
+        return <Component value={_value} onChangeRHF={_onChange} {...props} />;
+      }}
+    />
+  );
+};
 
-  /**
-   * USE THE COMPONENT WITH IN FORM PROVIDER
-   */
+const useInputText = () => {
+  const context = React.useContext(InputTextContext);
+  if (context === undefined) {
+    throw new Error('useInputText must be used within a <InputEditor />');
+  }
+  return context;
+};
+
+const CustomFormControl = ({ children }: any) => {
+  const { name, required, width } = useInputText();
   return (
     <FormControl
       display="flex"
       flexDirection="column"
-      gap={1}
-      id={props.name}
-      isRequired={false}
+      gap={2}
+      id={name}
+      isRequired={required}
       style={{ width }}
     >
-      <RenderWithLabelPosition
-        labelPosition={labelPosition}
-        label={
-          <FormLabel
-            color="#000000b3"
-            fontSize="14px"
-            lineHeight="21px"
-            label={label}
-            customLabel={customLabel}
-          />
-        }
-        inputComponent={
-          <Controller
-            control={control}
-            name={props.name}
-            rules={_rule}
-            render={(controllerProps) => {
-              const {
-                field: { onChange: _onChange, value: _value },
-              } = controllerProps;
-              return (
-                <TextInputComponent
-                  {...rest}
-                  value={_value}
-                  onChangeRHF={_onChange}
-                />
-              );
-            }}
-          />
-        }
-        optionalPrompt={
-          !required && showOptionalLabel ? (
-            <FormHelperText
-              m={0}
-              pl="10px"
-              color="gray.500"
-              fontWeight="300"
-              fontSize="14px"
-            >
-              optional
-            </FormHelperText>
-          ) : null
-        }
-        errorPrompt={
-          <FormErrorLable py="2px" px={1} fontSize="14px" message={error} />
-        }
-      />
+      {children}
     </FormControl>
   );
-}
-export default TextInput;
+};
+
+const CustomFormLabel = (props: any) => {
+  const { label, customLabel } = useInputText();
+  return <FormLabel label={`${label}`} customLabel={customLabel} {...props} />;
+};
+
+const CustomFormErrorLabel = () => {
+  const { required, name, errorMessage, errors } = useInputText();
+
+  if (!required) {
+    return null;
+  }
+
+  const error =
+    errorMessage ||
+    (errors && fromHelpers.resolveObjectValueByPath(errors, name)?.message);
+
+  return <FormErrorLable py="2px" px={1} fontSize="14px" message={error} />;
+};
+
+const CustomFormHelperText = () => {
+  const { required } = useInputText();
+  if (required) {
+    return null;
+  }
+
+  return (
+    <FormHelperText
+      m={0}
+      pl="10px"
+      color="gray.500"
+      fontWeight="300"
+      fontSize="14px"
+    >
+      optional
+    </FormHelperText>
+  );
+};
+
+const Default = ({ name, label, control, errors, required }: any) => {
+  if (control) {
+    return (
+      <InputText
+        required={required}
+        name={name}
+        label={label}
+        control={control}
+        errors={errors}
+      >
+        <CustomFormControl>
+          <Flex gap={2}>
+            <CustomFormLabel />
+            <CustomFormHelperText />
+          </Flex>
+          <CustomControllerComponent />
+          <CustomFormErrorLabel />
+        </CustomFormControl>
+      </InputText>
+    );
+  }
+
+  return (
+    <InputText
+      required={required}
+      name={name}
+      label={label}
+      control={control}
+      errors={errors}
+    >
+      <CustomFormControl>
+        <CustomFormLabel />
+        <Component />
+      </CustomFormControl>
+    </InputText>
+  );
+};
+
+InputText.Default = Default;
+InputText.FormLabel = CustomFormLabel;
+InputText.HelperText = CustomFormHelperText;
+InputText.ErrorLabel = CustomFormErrorLabel;
+InputText.FormControl = CustomFormControl;
+InputText.ControllerComponent = CustomControllerComponent;
+InputText.Component = Component;
+
+export const InputTextUsuage = () => {
+  return (
+    <ChakraProvider>
+      <FormProvider
+        onSubmit={(data: any) => {
+          console.log({
+            data,
+          });
+        }}
+        defaultValues={{
+          firstName: 'Puzan',
+          lastName: 'sakya',
+        }}
+        showDevTool
+      >
+        <ConnectForm>
+          {(formProps: any) => {
+            const {
+              control,
+              formState: { errors },
+            } = formProps;
+
+            return (
+              <Container
+                maxW="xl"
+                py={5}
+                display="flex"
+                flexDirection="column"
+                gap={3}
+              >
+                <InputText.Default
+                  name="firstName"
+                  label="First Name"
+                  control={control}
+                  errors={errors}
+                  required
+                />
+
+                <InputText
+                  name="lastName"
+                  label="Last Name"
+                  required
+                  control={control}
+                  errors={errors}
+                >
+                  <InputText.FormControl>
+                    <Flex gap={2}>
+                      <InputText.FormLabel />
+                      <InputText.HelperText />
+                    </Flex>
+                    <InputText.ControllerComponent />
+                    <InputText.ErrorLabel />
+                  </InputText.FormControl>
+                </InputText>
+
+                <Flex>
+                  <Button type="submit">Submit</Button>
+                </Flex>
+              </Container>
+            );
+          }}
+        </ConnectForm>
+      </FormProvider>
+    </ChakraProvider>
+  );
+};
