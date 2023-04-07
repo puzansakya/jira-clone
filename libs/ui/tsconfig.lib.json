@@ -6,7 +6,18 @@
   },
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
-    "../../node_modules/@nrwl/react/typings/image.d.ts"
+    "../../node_modules/@nrwl/react/typings/image.d.ts",
+    "./src/Components/Forms/InputText/InputTextContext.tsx",
+    "src/Components/Forms/InputText/InputText.tsx",
+    "./src/Components/Forms/InputText/Component.tsx",
+    "./src/Components/Forms/InputText/CustomControllerComponent.tsx",
+    "./src/Components/Forms/InputText/useInputText.tsx",
+    "./src/Components/Forms/InputText/CustomFormControl.tsx",
+    "./src/Components/Forms/InputText/CustomFormLabel.tsx",
+    "./src/Components/Forms/InputText/CustomFormErrorLabel.tsx",
+    "./src/Components/Forms/InputText/CustomFormHelperText.tsx",
+    "./src/Components/Forms/InputText/Default.tsx",
+    "./src/Components/Forms/InputText/InputTextUsuage.tsx"
   ],
   "exclude": [
     "jest.config.ts",

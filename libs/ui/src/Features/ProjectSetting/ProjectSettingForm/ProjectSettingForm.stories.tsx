@@ -1,8 +1,15 @@
+import { ChakraProvider } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
 import { ProjectSettingForm } from './ProjectSettingForm';
 
 const Story: Meta<typeof ProjectSettingForm> = {
-  component: ProjectSettingForm,
+  component: () => {
+    return (
+      <ChakraProvider>
+        <ProjectSettingForm projectCategoriesOptions={[]} />
+      </ChakraProvider>
+    );
+  },
   title: 'Features/Project Setting/Project Setting Form',
 };
 export default Story;
