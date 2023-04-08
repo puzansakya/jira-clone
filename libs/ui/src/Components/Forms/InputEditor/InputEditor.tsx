@@ -159,7 +159,7 @@ const Component = ({
 const CustomControllerComponent = () => {
   const { name, control, rule, required, ...rest } = useInputEditor();
 
-  let _rule = fromFormHelpers.getDefaultRules({ required });
+  let _rule: any = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {
     _rule = fromHelpers.deepMerge(_rule, rule);

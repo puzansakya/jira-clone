@@ -1,3 +1,4 @@
+export * from './Components/Forms/InputEditable/InputEditable';
 export * from './Components/Forms/TimeTracking/TimeTracking';
 export * from './Components/Forms/InputMultiSelect/InputMultiSelect';
 export * from './Components/Button/Button';

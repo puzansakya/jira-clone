@@ -11,7 +11,7 @@ export interface PxFormProviderProps {
     showDevTool?: boolean;
 }
 
-export interface PxInputProps {
+export interface PxInputEditableProps {
     children?: React.ReactNode;
     name: string;
     label: React.ReactNode;

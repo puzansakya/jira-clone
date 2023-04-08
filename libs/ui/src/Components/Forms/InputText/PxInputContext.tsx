@@ -1,7 +1,7 @@
 import React from 'react';
-import { PxInputProps } from './interface';
+import { PxInputEditableProps } from './interface';
 
-export const PxInputContext = React.createContext<PxInputProps>({
+export const PxInputContext = React.createContext<PxInputEditableProps>({
   label: 'Sample label',
   name: '',
   control: undefined,

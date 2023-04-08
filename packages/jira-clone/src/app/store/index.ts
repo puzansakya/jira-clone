@@ -5,6 +5,7 @@ import { issueApi } from "./api/issue";
 
 import board from "./board/slice";
 import user from "./user/slice";
+import status from "./status/slice";
 // import projectCategory from "./project-category/slice";
 // import projectSetting from "./project-setting/slice";
 
@@ -12,6 +13,7 @@ export const store = configureStore({
   reducer: {
     board,
     user,
+    status,
     // projectCategory,
     // projectSetting,
 

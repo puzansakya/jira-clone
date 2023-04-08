@@ -135,7 +135,7 @@ const AssigneeControllerComponent = (props: any) => {
   const { name, control, rule, required, ...rest } =
     useInputStatusMultiSelect();
 
-  let _rule = fromFormHelpers.getDefaultRules({ required });
+  let _rule: any = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {
     _rule = fromHelpers.deepMerge(_rule, rule);
@@ -206,7 +206,7 @@ const ReporterControllerComponent = (props: any) => {
   const { name, control, rule, required, ...rest } =
     useInputStatusMultiSelect();
 
-  let _rule = fromFormHelpers.getDefaultRules({ required });
+  let _rule: any = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {
     _rule = fromHelpers.deepMerge(_rule, rule);
@@ -277,7 +277,7 @@ const PriorityControllerComponent = (props: any) => {
   const { name, control, rule, required, ...rest } =
     useInputStatusMultiSelect();
 
-  let _rule = fromFormHelpers.getDefaultRules({ required });
+  let _rule: any = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {
     _rule = fromHelpers.deepMerge(_rule, rule);
@@ -348,7 +348,7 @@ const StatusControllerComponent = (props: any) => {
   const { name, control, rule, required, ...rest } =
     useInputStatusMultiSelect();
 
-  let _rule = fromFormHelpers.getDefaultRules({ required });
+  let _rule: any = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {
     _rule = fromHelpers.deepMerge(_rule, rule);

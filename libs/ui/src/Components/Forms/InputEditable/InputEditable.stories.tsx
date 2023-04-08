@@ -1,34 +1,31 @@
-// LIBS
-
-// CHAKRA UI
 import { Button, ChakraProvider, Container, Flex } from '@chakra-ui/react';
-import { PxFormErrorLabel } from './PxFormErrorLabel';
-import { PxComponent } from './PxComponent';
-import { PxFormLabel } from './PxFormLabel';
-import { PxFormHelperText } from './PxFormHelperText';
-import { PxFormControl } from './PxFormControl';
-import { PxInputText } from './PxInputText';
-import { PxFormProvider } from './PxFormProvider';
-import { PxConnectForm } from './PxConnectForm';
+import type { Meta } from '@storybook/react';
+import ConnectForm from '../ConnectForm/ConnectForm';
+import FormProvider from '../FormProvider/FormProvider';
+import InputEditable from './InputEditable';
 
-// UTILITIES
+const Story: Meta<typeof InputEditable> = {
+  component: InputEditable,
+  title: 'Forms/Input Editable',
+};
+export default Story;
 
-export const InputTextUsuage = () => {
-  return (
+export const Default = {
+  render: () => (
     <ChakraProvider>
-      <PxFormProvider
+      <FormProvider
         onSubmit={(data: any) => {
           console.log({
             data,
           });
         }}
         defaultValues={{
-          firstName: 'asdasd',
-          lastName: 'sss',
+          firstName: 'uzan',
+          lastName: 'Shakya',
         }}
         showDevTool
       >
-        <PxConnectForm>
+        <ConnectForm>
           {(formProps: any) => {
             const {
               control,
@@ -48,21 +45,28 @@ export const InputTextUsuage = () => {
                 flexDirection="column"
                 gap={3}
               >
-                <PxInputText
+                <InputEditable
                   label="First Name"
                   name="firstName"
                   {...inputProps}
                   required
                 >
-                  <PxFormControl>
+                  <InputEditable.FormControl>
                     <Flex gap={2}>
-                      <PxFormLabel />
-                      <PxFormHelperText />
+                      <InputEditable.FormLabel />
+                      <InputEditable.HelperText />
                     </Flex>
-                    <PxComponent />
-                    <PxFormErrorLabel />
-                  </PxFormControl>
-                </PxInputText>
+                    <InputEditable.Component />
+                    <InputEditable.ErrorLabel />
+                  </InputEditable.FormControl>
+                </InputEditable>
+
+                <InputEditable.Default
+                  label="Last Name"
+                  name="lastName"
+                  {...inputProps}
+                  required
+                />
 
                 <Flex>
                   <Button type="submit">Submit</Button>
@@ -70,8 +74,8 @@ export const InputTextUsuage = () => {
               </Container>
             );
           }}
-        </PxConnectForm>
-      </PxFormProvider>
+        </ConnectForm>
+      </FormProvider>
     </ChakraProvider>
-  );
+  ),
 };

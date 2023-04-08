@@ -1,13 +1,13 @@
-import { Controller } from 'react-hook-form';
 import { isEmpty } from 'lodash';
+import { Controller } from 'react-hook-form';
 import * as fromHelpers from '../../../Helpers';
 import * as fromFormHelpers from '../@form-helper';
 import { PxControlledComponentProps } from './interface';
-import { usePxInput } from './usePxInput';
-import { PxUncontrollerComponent } from './PxUncontrollerComponent';
+import { PxUncontrollerComponent } from './PxUncontrolledComponent';
+import { usePxInputEditable } from './usePxInputEditable';
 
 export const PxControlledComponent = (props: PxControlledComponentProps) => {
-  const { control, rule, name, required } = usePxInput();
+  const { control, rule, name, required } = usePxInputEditable();
   let _rule: any = fromFormHelpers.getDefaultRules({ required });
 
   if (!isEmpty(rule)) {

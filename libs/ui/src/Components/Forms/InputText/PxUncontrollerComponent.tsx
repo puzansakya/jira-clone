@@ -8,7 +8,11 @@ export const PxUncontrollerComponent = (
   const { onChangeRHF, ...rest } = props;
   const pzContext = usePxInput();
 
-  const { name, value, onChange: _onChange } = pzContext;
+  const {
+    name,
+    value, // this is user defined value for uncontrolled component
+    onChange: _onChange,
+  } = pzContext;
 
   const handleChange = (e: any) => {
     const { value } = e.target;

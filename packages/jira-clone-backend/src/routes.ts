@@ -3,6 +3,7 @@ import ProjectCategoryController from "./packages/projectCategory/controller"
 import ProjectController from "./packages/project/controller"
 import IssueController from "./packages/issue/controller"
 import UserController from "./packages/user/controller"
+import StatusController from "./packages/issueStatus/controller"
 
 const API_NAMESAPCE = "/api/v1"
 
@@ -23,5 +24,9 @@ export const Routes: any = {
     user: {
         path: `${API_NAMESAPCE}/users`,
         controller: UserController,
+    },
+    status: {
+        path: `${API_NAMESAPCE}/statuses`,
+        controller: StatusController,
     },
 }
