@@ -1,48 +1,37 @@
 import { Flex } from '@chakra-ui/react';
-import { Component } from 'react';
-import CustomControllerComponent from './CustomControllerComponent';
-import CustomFormControl from './CustomFormControl';
-import CustomFormErrorLabel from './CustomFormErrorLabel';
-import CustomFormHelperText from './CustomFormHelperText';
-import CustomFormLabel from './CustomFormLabel';
-import { InputText } from './InputText';
+import { PxInputProps } from './interface';
+import { PxInputText } from './PxInputText';
+import { PxFormControl } from './PxFormControl';
+import { PxFormHelperText } from './PxFormHelperText';
+import { PxFormLabel } from './PxFormLabel';
+import { PxComponent } from './PxComponent';
+import { PxFormErrorLabel } from './PxFormErrorLabel';
 
-const Default = ({ name, label, control, errors, required }: any) => {
+export const Default = ({
+  name,
+  label,
+  control,
+  errors,
+  required,
+}: PxInputProps) => {
   if (control) {
     return (
-      <InputText
+      <PxInputText
         required={required}
         name={name}
         label={label}
         control={control}
         errors={errors}
       >
-        <CustomFormControl>
+        <PxFormControl>
           <Flex gap={2}>
-            <CustomFormLabel />
-            <CustomFormHelperText />
+            <PxFormLabel />
+            <PxFormHelperText />
           </Flex>
-          <CustomControllerComponent />
-          <CustomFormErrorLabel />
-        </CustomFormControl>
-      </InputText>
+          <PxComponent />
+          <PxFormErrorLabel />
+        </PxFormControl>
+      </PxInputText>
     );
   }
-
-  return (
-    <InputText
-      required={required}
-      name={name}
-      label={label}
-      control={control}
-      errors={errors}
-    >
-      <CustomFormControl>
-        <CustomFormLabel />
-        <Component />
-      </CustomFormControl>
-    </InputText>
-  );
 };
-
-export default Default;

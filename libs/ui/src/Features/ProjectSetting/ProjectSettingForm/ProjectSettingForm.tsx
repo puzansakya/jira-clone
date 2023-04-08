@@ -12,7 +12,7 @@ import ConnectForm from '../../../Components/Forms/ConnectForm/ConnectForm';
 import FormProvider from '../../../Components/Forms/FormProvider/FormProvider';
 import { InputEditor } from '../../../Components/Forms/InputEditor/InputEditor';
 import { InputSelect } from '../../../Components/Forms/InputSelect/InputSelect';
-import { InputText } from '../../../Components/Forms/InputText/InputText';
+import { PxInputText } from '../../../Components/Forms/InputText/PxInputText';
 
 const INITIAL_FORM_DATA = {
   name: '',
@@ -78,45 +78,39 @@ export function ProjectSettingForm({
             return (
               <>
                 <VStack align="start" spacing={5}>
-                  <InputText
+                  <PxInputText
                     name="name"
                     label="Name"
                     required
                     control={control}
                     errors={errors}
                   >
-                    <InputText.FormControl>
+                    <PxInputText.FormControl>
                       <Flex gap={2}>
-                        <InputText.FormLabel />
-                        <InputText.HelperText />
+                        <PxInputText.FormLabel />
+                        <PxInputText.HelperText />
                       </Flex>
-                      <InputText.ControllerComponent
-                        size="sm"
-                        borderColor="gray.300"
-                      />
-                      <InputText.ErrorLabel />
-                    </InputText.FormControl>
-                  </InputText>
+                      <PxInputText.Component size="sm" borderColor="gray.300" />
+                      <PxInputText.ErrorLabel />
+                    </PxInputText.FormControl>
+                  </PxInputText>
 
-                  <InputText
+                  <PxInputText
                     name="url"
                     label="URL"
                     required
                     control={control}
                     errors={errors}
                   >
-                    <InputText.FormControl>
+                    <PxInputText.FormControl>
                       <Flex gap={2}>
-                        <InputText.FormLabel />
-                        <InputText.HelperText />
+                        <PxInputText.FormLabel />
+                        <PxInputText.HelperText />
                       </Flex>
-                      <InputText.ControllerComponent
-                        size="sm"
-                        borderColor="gray.300"
-                      />
-                      <InputText.ErrorLabel />
-                    </InputText.FormControl>
-                  </InputText>
+                      <PxInputText.Component size="sm" borderColor="gray.300" />
+                      <PxInputText.ErrorLabel />
+                    </PxInputText.FormControl>
+                  </PxInputText>
 
                   <InputEditor
                     name="description"

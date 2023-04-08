@@ -36,7 +36,23 @@ const update = catchErrors(async (
     return res.status(200).json(response);
 })
 
+/**
+ * DETAIL
+ * @param req 
+ * @param res 
+ * @returns 
+ */
+const detail = catchErrors(async (
+    req: Request,
+    res: Response,
+): Promise<any> => {
+    const response = await fromUseCases.detail({ ...req.query, id: req.params.id });
+
+    return res.status(200).json(response);
+})
+
 router.get('/', query);
+router.get('/:id', detail);
 router.put('/', update);
 
 export default router;

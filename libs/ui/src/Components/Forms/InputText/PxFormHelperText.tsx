@@ -1,8 +1,9 @@
 import { FormHelperText } from '@chakra-ui/react';
-import { useInputText } from './useInputText';
+import { PxFormHelperTextProps } from './interface';
+import { usePxInput } from './usePxInput';
 
-const CustomFormHelperText = () => {
-  const { required } = useInputText();
+export const PxFormHelperText = (props: PxFormHelperTextProps) => {
+  const { required } = usePxInput();
   if (required) {
     return null;
   }
@@ -14,10 +15,9 @@ const CustomFormHelperText = () => {
       color="gray.500"
       fontWeight="300"
       fontSize="14px"
+      {...props}
     >
       optional
     </FormHelperText>
   );
 };
-
-export default CustomFormHelperText;

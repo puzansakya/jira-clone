@@ -17,7 +17,20 @@
     "./src/Components/Forms/InputText/CustomFormErrorLabel.tsx",
     "./src/Components/Forms/InputText/CustomFormHelperText.tsx",
     "./src/Components/Forms/InputText/Default.tsx",
-    "./src/Components/Forms/InputText/InputTextUsuage.tsx"
+    "./src/Components/Forms/InputText/InputTextUsuage.tsx",
+    "./src/Components/Forms/InputText/PxConnectForm.tsx",
+    "./src/Components/Forms/InputText/PxFormProvider.tsx",
+    "src/Components/Forms/InputText/PxInputContext.tsx",
+    "./src/Components/Forms/InputText/PxInputText.tsx",
+    "./src/Components/Forms/InputText/usePxInput.tsx",
+    "./src/Components/Forms/InputText/PxFormControl.tsx",
+    "./src/Components/Forms/InputText/PxFormHelperText.tsx",
+    "./src/Components/Forms/InputText/PxFormLabel.tsx",
+    "./src/Components/Forms/InputText/PxComponent.tsx",
+    "./src/Components/Forms/InputText/PxUncontrollerComponent.tsx",
+    "./src/Components/Forms/InputText/PxControlledComponent.tsx",
+    "./src/Components/Forms/InputText/PxFormErrorLabel.tsx",
+    "./src/Components/Forms/InputText/Default.tsx"
   ],
   "exclude": [
     "jest.config.ts",

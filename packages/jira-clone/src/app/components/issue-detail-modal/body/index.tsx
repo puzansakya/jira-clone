@@ -10,15 +10,66 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
+import React from 'react';
 import {
   InputEditor,
   InputStatusMultiSelect,
-  InputText,
+  PageLoading,
+  PxInputText,
   TimeTracking,
 } from 'ui';
 import Comment from './comment';
 
+const INITIAL_FORM_VALUE = {};
+
 const DetailBody = () => {
+  // LOCAL STATE
+  const [_defaultValues, _setDefaultValues] =
+    React.useState(INITIAL_FORM_VALUE);
+  const [loading, setLoading] = React.useState(true);
+
+  // FUNCTIONS
+  const onInitUpdate = React.useCallback(() => {
+    const transformedFormValues = transformToFormValue({});
+    _setDefaultValues(transformedFormValues);
+    setLoading(false);
+  }, []);
+
+  // const onInit = React.useCallback(() => {
+  //   _setdefaultValues(INITIAL_FORM_VALUE);
+  //   setloading(false);
+  // }, []);
+
+  React.useEffect(() => {
+    onInitUpdate();
+  }, [onInitUpdate]);
+
+  const transformToFormValue = (data: any) => {
+    const returnValue = {
+      ...data,
+    };
+
+    return returnValue;
+  };
+
+  const transformToSubmitValue = (data: any) => {
+    return {
+      ...data,
+    };
+  };
+
+  const handleSubmit = async (data: any) => {
+    if (!data) {
+      return;
+    }
+
+    const finalPayload = transformToSubmitValue(data);
+  };
+
+  if (loading) {
+    return <PageLoading h="200px" />;
+  }
+
   return (
     <HStack spacing={10} alignItems="start">
       <Box width="60%" flexShrink={0}>
@@ -196,20 +247,20 @@ const DetailBody = () => {
             </InputStatusMultiSelect.FormControl>
           </InputStatusMultiSelect>
 
-          <InputText name="asdf" label="ORIGINAL ESTIMATE (HOURS)" required>
-            <InputText.FormControl>
+          <PxInputText name="asdf" label="ORIGINAL ESTIMATE (HOURS)" required>
+            <PxInputText.FormControl>
               <Flex gap={2}>
-                <InputText.FormLabel />
-                <InputText.HelperText />
+                <PxInputText.FormLabel />
+                <PxInputText.HelperText />
               </Flex>
-              <InputText.Component
+              <PxInputText.Component
                 size="sm"
                 color="brand.label"
                 borderColor="gray.300"
               />
-              <InputText.ErrorLabel />
-            </InputText.FormControl>
-          </InputText>
+              <PxInputText.ErrorLabel />
+            </PxInputText.FormControl>
+          </PxInputText>
 
           <TimeTracking
             value={{

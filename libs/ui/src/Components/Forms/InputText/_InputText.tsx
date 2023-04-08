@@ -148,7 +148,7 @@ export function TextInput(props: TextInputProps) {
           <Controller
             control={control}
             name={props.name}
-            rules={_rule}
+            // rules={_rule}
             render={(controllerProps) => {
               const {
                 field: { onChange: _onChange, value: _value },

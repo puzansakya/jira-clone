@@ -8,7 +8,7 @@ export * from './Components/Forms/FormProvider/FormProvider';
 export * from './Components/Forms/InputDatePicker/InputDatePicker';
 export * from './Components/Forms/InputEditor/InputEditor';
 export * from './Components/Forms/InputSelect/InputSelect';
-export * from './Components/Forms/InputText/InputTextUsuage';
+export * from './Components/Forms/InputText/PxInputText';
 export * from './Components/Forms/RenderWithLabelPosition/RenderWithLabelPosition';
 export * from './Components/NotFound/NotFound';
 export * from './Components/PageLoading/PageLoading';
