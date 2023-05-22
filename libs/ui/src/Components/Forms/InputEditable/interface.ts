@@ -10,8 +10,8 @@ export interface PxInputEditableProps {
     rule?: any;
     value?: any;
     onChange?: any;
+    wait?: number;
 }
-
 
 export type PxEditableProps = EditableProps
 
@@ -21,7 +21,7 @@ export type PxFormHelperTextProps = FormHelperTextProps;
 
 export type PxFormErrorLabelProps = TextProps;
 
-export interface PxComponentProps {
+export interface PxComponentProps extends Record<string, any> {
     onChangeRHF?: any;
 }
 

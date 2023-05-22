@@ -2,7 +2,7 @@ import { Button, ChakraProvider, Container, Flex } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
 import ConnectForm from '../ConnectForm/ConnectForm';
 import FormProvider from '../FormProvider/FormProvider';
-import InputEditable from './InputEditable';
+import InputEditable from '.';
 
 const Story: Meta<typeof InputEditable> = {
   component: InputEditable,
@@ -48,6 +48,7 @@ export const Default = {
                 <InputEditable
                   label="First Name"
                   name="firstName"
+                  wait={5000}
                   {...inputProps}
                   required
                 >

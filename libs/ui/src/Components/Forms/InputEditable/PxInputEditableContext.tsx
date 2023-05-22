@@ -11,6 +11,7 @@ export const PxInputEditableContext = React.createContext<PxInputEditableProps>(
     rule: undefined,
     value: '',
     onChange: undefined,
+    wait: 0,
   }
 );
 PxInputEditableContext.displayName = 'PxInputEditableContext';

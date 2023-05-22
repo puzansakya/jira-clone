@@ -15,3 +15,21 @@ Run `npx nx connect-to-nx-cloud` to enable [remote caching](https://nx.app) and 
 ## Further help
 
 Visit the [Nx Documentation](https://nx.dev) to learn more.
+
+## Install deps
+
+```bash
+yarn
+```
+
+## Start up storybook
+
+```bash
+yarn storybook:ui
+```
+
+## Start up jira clone client
+
+```bash
+npx nx serve jira-clone
+```

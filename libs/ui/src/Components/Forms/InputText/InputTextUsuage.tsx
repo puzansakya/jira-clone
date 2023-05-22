@@ -23,7 +23,7 @@ export const InputTextUsuage = () => {
           });
         }}
         defaultValues={{
-          firstName: 'asdasd',
+          firstName: '',
           lastName: 'sss',
         }}
         showDevTool

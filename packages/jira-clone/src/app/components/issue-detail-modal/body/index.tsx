@@ -1,21 +1,9 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Divider, Flex, HStack, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
 import {
   ConnectForm,
   FormProvider,
   InputEditable,
-  InputEditor,
   InputStatusMultiSelect,
   PageLoading,
   PxInputText,
@@ -23,9 +11,11 @@ import {
 } from 'ui';
 import Comment from './comment';
 
+import { useDispatch, useSelector } from 'react-redux';
 import * as fromIssueDetailPageStore from '../../../store/@issue-detail';
 import * as fromStatusStore from './../../../store/status';
-import { useDispatch, useSelector } from 'react-redux';
+import * as fromUserStore from './../../../store/user';
+import Editor from './editor';
 import Watcher from './watcher';
 
 const INITIAL_FORM_VALUE = {};
@@ -40,7 +30,10 @@ const DetailBody = () => {
   const [loading, setLoading] = React.useState(true);
 
   // SELECTORS
-  const statuses = useSelector(fromStatusStore.selectDropdownItems);
+  const statuses: any = useSelector(fromStatusStore.selectDropdownItems);
+  const userDropdownOptions: any = useSelector(
+    fromUserStore.selectDropdownItems
+  );
 
   // FUNCTIONS
   const onInitUpdate = React.useCallback(async () => {
@@ -65,6 +58,11 @@ const DetailBody = () => {
       status: {
         label: data?.status?.name,
         value: data?.status?.id,
+      },
+      reporter: {
+        label: `${data?.reporter?.firstName} ${data?.reporter?.lastName}`,
+        value: data?.reporter?.id,
+        src: data?.reporter?.avatar,
       },
     };
 
@@ -97,7 +95,7 @@ const DetailBody = () => {
         }}
       </ConnectForm>
       <ConnectForm>
-        {({ control, formState }: any) => {
+        {({ control, getValues, formState }: any) => {
           const { errors, isSubmitting } = formState;
 
           const inputProps = { control, errors };
@@ -109,43 +107,8 @@ const DetailBody = () => {
                   <InputEditable.Component />
                 </InputEditable>
 
-                <InputEditor
-                  name="description"
-                  label="Description"
-                  required
-                  {...inputProps}
-                >
-                  <InputEditor.FormControl>
-                    <Flex gap={2}>
-                      <InputEditor.FormLabel />
-                      <InputEditor.HelperText />
-                    </Flex>
-                    <InputEditor.ControllerComponent />
-                    <InputEditor.ErrorLabel />
-                  </InputEditor.FormControl>
-                </InputEditor>
+                <Editor {...inputProps} getValues={getValues} />
 
-                <HStack spacing={2} mt={8}>
-                  <Button
-                    bg="brand.secondary"
-                    _hover={{ bg: 'brand.primary' }}
-                    size="sm"
-                    fontWeight="normal"
-                    color="white"
-                    type="submit"
-                    borderRadius="sm"
-                  >
-                    Save
-                  </Button>
-                  <Button
-                    size="sm"
-                    fontWeight="normal"
-                    // onClick={() => { }}
-                    borderRadius="sm"
-                  >
-                    Cancel
-                  </Button>
-                </HStack>
                 <Box mt={10}>
                   <Comment />
                 </Box>
@@ -204,23 +167,7 @@ const DetailBody = () => {
                   <InputStatusMultiSelect
                     label="REPORTER"
                     name="reporter"
-                    options={[
-                      {
-                        value: '1',
-                        label: 'Lord Gaben',
-                        src: 'https://i.ibb.co/6RJ5hq6/gaben.jpg',
-                      },
-                      {
-                        value: '2',
-                        label: 'Baby Yoda',
-                        src: 'https://i.ibb.co/6n0hLML/baby-yoda.jpg',
-                      },
-                      {
-                        value: '3',
-                        label: 'Pickle Rick',
-                        src: 'https://i.ibb.co/7JM1P2r/picke-rick.jpg',
-                      },
-                    ]}
+                    options={userDropdownOptions}
                     required
                   >
                     <InputStatusMultiSelect.FormControl>

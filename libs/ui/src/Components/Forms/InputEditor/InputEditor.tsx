@@ -113,7 +113,7 @@ export const InputEditor = ({
   );
 };
 
-interface ComponentProps {
+interface ComponentProps extends Record<string, any> {
   onChangeRHF?: any;
   value?: any;
   onChange?: any;
@@ -123,6 +123,7 @@ const Component = ({
   onChangeRHF,
   value,
   onChange: _onChange,
+  ...propsRest
 }: ComponentProps) => {
   const {
     name,
@@ -152,11 +153,12 @@ const Component = ({
       value={value || ''}
       onChange={handleChange}
       {...rest}
+      {...propsRest}
     />
   );
 };
 
-const CustomControllerComponent = () => {
+const CustomControllerComponent = (props: any) => {
   const { name, control, rule, required, ...rest } = useInputEditor();
 
   let _rule: any = fromFormHelpers.getDefaultRules({ required });
@@ -174,7 +176,14 @@ const CustomControllerComponent = () => {
         const {
           field: { onChange: _onChange, value: _value },
         } = controllerProps;
-        return <Component {...rest} value={_value} onChangeRHF={_onChange} />;
+        return (
+          <Component
+            {...rest}
+            value={_value}
+            onChangeRHF={_onChange}
+            {...props}
+          />
+        );
       }}
     />
   );

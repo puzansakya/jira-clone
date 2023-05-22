@@ -6,11 +6,10 @@ import { PxFormHelperText } from './PxFormHelperText';
 import { PxFormLabel } from './PxFormLabel';
 import { PxComponent } from './PxComponent';
 import { PxFormErrorLabel } from './PxFormErrorLabel';
-import PxInputEditable from '../InputEditable/PxInputEditable';
 
 export const Default = (props: PxInputEditableProps) => {
   return (
-    <PxInputEditable {...props}>
+    <PxInputText {...props}>
       <PxFormControl>
         <Flex gap={2}>
           <PxFormLabel />
@@ -19,6 +18,6 @@ export const Default = (props: PxInputEditableProps) => {
         <PxComponent />
         <PxFormErrorLabel />
       </PxFormControl>
-    </PxInputEditable>
+    </PxInputText>
   );
 };
