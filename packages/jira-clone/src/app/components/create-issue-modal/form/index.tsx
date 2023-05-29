@@ -8,13 +8,7 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import {
-  ConnectForm,
-  FormProvider,
-  InputEditor,
-  InputSelect,
-  InputStatusMultiSelect,
-} from 'ui';
+import { ConnectForm, FormProvider, InputEditor, Select } from 'ui';
 
 const INITIAL_FORM_DATA = {
   issueType: {
@@ -102,7 +96,7 @@ const CreateIssueForm = ({ onClose }: any) => {
             <>
               <ModalBody px={10} py={8}>
                 <VStack align="start" spacing={5}>
-                  <InputSelect
+                  <Select
                     name="issueType"
                     label="Issue Type"
                     options={ISSUE_TYPE_OPTION}
@@ -110,43 +104,40 @@ const CreateIssueForm = ({ onClose }: any) => {
                     control={control}
                     errors={errors}
                   >
-                    <InputSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputSelect.FormLabel />
-                        <InputSelect.HelperText />
+                        <Select.FormLabel />
+                        <Select.HelperText />
                       </Flex>
-                      <InputSelect.ControllerComponent />
+                      <Select.Component />
                       <Text fontSize="sm">
                         Start typing to get a list of possible matches.
                       </Text>
-                      <InputSelect.ErrorLabel />
-                    </InputSelect.FormControl>
-                  </InputSelect>
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select>
 
                   <Divider borderColor="gray.400" />
 
-                  <InputStatusMultiSelect
+                  <Select
                     name="shortSummary"
                     label="Short Summary"
                     required
                     control={control}
                     errors={errors}
                   >
-                    <InputStatusMultiSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputStatusMultiSelect.FormLabel fontSize="sm" />
-                        <InputStatusMultiSelect.HelperText />
+                        <Select.FormLabel fontSize="sm" />
+                        <Select.HelperText />
                       </Flex>
-                      <InputStatusMultiSelect.ControllerComponent
-                        size="sm"
-                        borderColor="gray.300"
-                      />
-                      <InputStatusMultiSelect.ErrorLabel />
+                      <Select.Component />
+                      <Select.ErrorLabel />
                       <Text fontSize="sm">
                         Concisely summarize the issue in one or two sentences.
                       </Text>
-                    </InputStatusMultiSelect.FormControl>
-                  </InputStatusMultiSelect>
+                    </Select.FormControl>
+                  </Select>
 
                   <InputEditor
                     name="description"
@@ -168,7 +159,7 @@ const CreateIssueForm = ({ onClose }: any) => {
                     </InputEditor.FormControl>
                   </InputEditor>
 
-                  <InputSelect
+                  <Select
                     name="reporter"
                     label="Reporter"
                     options={REPORTER_OPTION}
@@ -176,17 +167,17 @@ const CreateIssueForm = ({ onClose }: any) => {
                     control={control}
                     errors={errors}
                   >
-                    <InputSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputSelect.FormLabel fontSize="sm" />
-                        <InputSelect.HelperText />
+                        <Select.FormLabel fontSize="sm" />
+                        <Select.HelperText />
                       </Flex>
-                      <InputSelect.ControllerComponent />
-                      <InputSelect.ErrorLabel />
-                    </InputSelect.FormControl>
-                  </InputSelect>
+                      <Select.Component />
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select>
 
-                  <InputSelect
+                  <Select
                     name="assignees"
                     label="Assignees"
                     options={REPORTER_OPTION}
@@ -194,17 +185,17 @@ const CreateIssueForm = ({ onClose }: any) => {
                     control={control}
                     errors={errors}
                   >
-                    <InputSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputSelect.FormLabel fontSize="sm" />
-                        <InputSelect.HelperText />
+                        <Select.FormLabel fontSize="sm" />
+                        <Select.HelperText />
                       </Flex>
-                      <InputSelect.ControllerComponent />
-                      <InputSelect.ErrorLabel />
-                    </InputSelect.FormControl>
-                  </InputSelect>
+                      <Select.Component />
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select>
 
-                  <InputSelect
+                  <Select
                     name="priority"
                     label="Priority"
                     options={PRIORITY_OPTION}
@@ -212,18 +203,18 @@ const CreateIssueForm = ({ onClose }: any) => {
                     control={control}
                     errors={errors}
                   >
-                    <InputSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputSelect.FormLabel fontSize="sm" />
-                        <InputSelect.HelperText />
+                        <Select.FormLabel fontSize="sm" />
+                        <Select.HelperText />
                       </Flex>
-                      <InputSelect.ControllerComponent />
-                      <InputSelect.ErrorLabel />
+                      <Select.Component />
+                      <Select.ErrorLabel />
                       <Text fontSize="sm">
                         Priority in relation to other issues.
                       </Text>
-                    </InputSelect.FormControl>
-                  </InputSelect>
+                    </Select.FormControl>
+                  </Select>
                 </VStack>
               </ModalBody>
               <ModalFooter>

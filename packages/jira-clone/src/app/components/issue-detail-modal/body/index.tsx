@@ -3,10 +3,11 @@ import React from 'react';
 import {
   ConnectForm,
   FormProvider,
-  InputEditable,
-  InputStatusMultiSelect,
+  InputEditorV2,
+  // InputStatusMultiSelect,
   PageLoading,
   PxInputText,
+  Select,
   TimeTracking,
 } from 'ui';
 import Comment from './comment';
@@ -103,9 +104,9 @@ const DetailBody = () => {
           return (
             <HStack spacing={10} alignItems="start" mt={5}>
               <Flex direction="column" gap={5} width="60%" flexShrink={0}>
-                <InputEditable name="title" label="" {...inputProps}>
-                  <InputEditable.Component />
-                </InputEditable>
+                <InputEditorV2 name="title" label="" {...inputProps}>
+                  <InputEditorV2.Component />
+                </InputEditorV2>
 
                 <Editor {...inputProps} getValues={getValues} />
 
@@ -115,24 +116,24 @@ const DetailBody = () => {
               </Flex>
               <Box width="40%">
                 <VStack spacing={6} mt={6}>
-                  <InputStatusMultiSelect
+                  <Select
                     label="STATUS"
                     name="status"
                     options={statuses}
                     {...inputProps}
                     required
                   >
-                    <InputStatusMultiSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputStatusMultiSelect.FormLabel />
-                        <InputStatusMultiSelect.HelperText />
+                        <Select.FormLabel />
+                        <Select.HelperText />
                       </Flex>
-                      <InputStatusMultiSelect.ControllerComponent />
-                      <InputStatusMultiSelect.ErrorLabel />
-                    </InputStatusMultiSelect.FormControl>
-                  </InputStatusMultiSelect>
+                      <Select.StatusComponent />
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select>
 
-                  <InputStatusMultiSelect
+                  {/* <Select
                     label="ASSIGNEES"
                     name="assignee"
                     options={[
@@ -154,33 +155,33 @@ const DetailBody = () => {
                     ]}
                     required
                   >
-                    <InputStatusMultiSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputStatusMultiSelect.FormLabel />
-                        <InputStatusMultiSelect.HelperText />
+                        <Select.FormLabel />
+                        <Select.HelperText />
                       </Flex>
-                      <InputStatusMultiSelect.AssigneeComponent />
-                      <InputStatusMultiSelect.ErrorLabel />
-                    </InputStatusMultiSelect.FormControl>
-                  </InputStatusMultiSelect>
+                      <Select.Component />
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select> */}
 
-                  <InputStatusMultiSelect
+                  <Select
                     label="REPORTER"
                     name="reporter"
                     options={userDropdownOptions}
                     required
                   >
-                    <InputStatusMultiSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputStatusMultiSelect.FormLabel />
-                        <InputStatusMultiSelect.HelperText />
+                        <Select.FormLabel />
+                        <Select.HelperText />
                       </Flex>
-                      <InputStatusMultiSelect.ReporterComponent />
-                      <InputStatusMultiSelect.ErrorLabel />
-                    </InputStatusMultiSelect.FormControl>
-                  </InputStatusMultiSelect>
+                      <Select.ReporterComponent />
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select>
 
-                  <InputStatusMultiSelect
+                  <Select
                     label="PRIORITY"
                     name="priority"
                     options={[
@@ -192,15 +193,15 @@ const DetailBody = () => {
                     ]}
                     required
                   >
-                    <InputStatusMultiSelect.FormControl>
+                    <Select.FormControl>
                       <Flex gap={2}>
-                        <InputStatusMultiSelect.FormLabel />
-                        <InputStatusMultiSelect.HelperText />
+                        <Select.FormLabel />
+                        <Select.HelperText />
                       </Flex>
-                      <InputStatusMultiSelect.PriorityComponent />
-                      <InputStatusMultiSelect.ErrorLabel />
-                    </InputStatusMultiSelect.FormControl>
-                  </InputStatusMultiSelect>
+                      <Select.PriorityComponent />
+                      <Select.ErrorLabel />
+                    </Select.FormControl>
+                  </Select>
 
                   <PxInputText
                     name="asdf"
