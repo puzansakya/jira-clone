@@ -11,14 +11,15 @@ const transformToSubmitValues = (data: any) => {
 };
 
 const Watcher = (props: any) => {
-  const { watch } = props;
+  const { watch, onSubmit } = props;
 
   useEffect(() => {
     const subscription =
       watch &&
       watch((value: any, { name }: any) => {
         const mapped = transformToSubmitValues(value);
-        console.log(JSON.stringify(mapped, null, 2));
+        onSubmit(mapped)
+
       });
 
     return () => subscription.unsubscribe();

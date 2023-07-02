@@ -32,7 +32,6 @@ const update = catchErrors(async (
     res: Response,
 ): Promise<any> => {
     const response = await fromUseCases.update(req.body);
-
     return res.status(200).json(response);
 })
 

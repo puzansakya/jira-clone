@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import {Model} from 'objection';
 import BaseModel from '../../../core/BaseModel';
 import IssuePriority from '../../issuePriority/domain/issuePriority';
 import IssueStatus from '../../issueStatus/domain/issueStatus';
@@ -7,7 +7,7 @@ import Project from '../../project/domain/project';
 import User from '../../user/domain/user';
 
 export default class Issue extends BaseModel {
-    name?: string;
+    title: string;
     listPosition?: number;
     description?: string;
     descriptionText?: string;

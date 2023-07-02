@@ -22,7 +22,7 @@ const port = process.env.PORT || 3333;
 
 const corsConfig = {
   origin: '*',
-  optionsSuccessStatus: 200
+  // optionsSuccessStatus: 200
 }
 
 app.use(cors(corsConfig));

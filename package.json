@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "storybook:ui": "npx nx run ui:storybook"
+    "storybook:ui": "npx nx run ui:storybook",
+    "start:jira-clone": "npx nx serve jira-clone",
+    "start:jira-clone-backend": "npx nx serve jira-clone-backend"
   },
   "private": true,
   "dependencies": {

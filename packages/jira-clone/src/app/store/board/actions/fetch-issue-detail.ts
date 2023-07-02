@@ -1,7 +1,7 @@
-export const fetchIssueDetail: any = (issueId: string) => async (dispatch: any, getState: any) => {
+export const fetchIssueDetail: any = (issueId: string) => async () => {
 
     const response = await fetch(
-        `http://localhost:8000/api/v1/issues/${issueId}?eager=[project,type,status,priority,reporter]`
+        `http://localhost:8000/api/v1/issues/${issueId}?eager=[project,type,status,priority,reporter,assignee]`
     );
 
     return await response.json();
