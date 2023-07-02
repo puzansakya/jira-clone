@@ -1,4 +1,12 @@
-import { Box, Divider, Flex, HStack, Text, VStack } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  HStack,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
 import React from 'react';
 import {
   ConnectForm,
@@ -7,6 +15,7 @@ import {
   // InputStatusMultiSelect,
   PageLoading,
   PxInputText,
+  MultiSelect,
   Select,
   TimeTracking,
 } from 'ui';
@@ -82,6 +91,8 @@ const DetailBody = () => {
     }
 
     const finalPayload = transformToSubmitValue(data);
+
+    console.log(JSON.stringify(finalPayload, null, 2));
   };
 
   if (loading) {
@@ -133,7 +144,7 @@ const DetailBody = () => {
                     </Select.FormControl>
                   </Select>
 
-                  {/* <Select
+                  <MultiSelect
                     label="ASSIGNEES"
                     name="assignee"
                     options={[
@@ -155,15 +166,15 @@ const DetailBody = () => {
                     ]}
                     required
                   >
-                    <Select.FormControl>
+                    <MultiSelect.FormControl>
                       <Flex gap={2}>
-                        <Select.FormLabel />
-                        <Select.HelperText />
+                        <MultiSelect.FormLabel />
+                        <MultiSelect.HelperText />
                       </Flex>
-                      <Select.Component />
-                      <Select.ErrorLabel />
-                    </Select.FormControl>
-                  </Select> */}
+                      <MultiSelect.Component />
+                      <MultiSelect.ErrorLabel />
+                    </MultiSelect.FormControl>
+                  </MultiSelect>
 
                   <Select
                     label="REPORTER"
@@ -234,6 +245,35 @@ const DetailBody = () => {
                 <Text> Updated at 6 months ago</Text>
               </Box>
             </HStack>
+          );
+        }}
+      </ConnectForm>
+      <ConnectForm>
+        {() => {
+          return (
+            <Box>
+              <HStack spacing={2}>
+                <Button
+                  bg="brand.secondary"
+                  _hover={{ bg: 'brand.primary' }}
+                  size="sm"
+                  fontWeight="normal"
+                  color="white"
+                  type="submit"
+                  borderRadius="sm"
+                >
+                  Save
+                </Button>
+                <Button
+                  size="sm"
+                  fontWeight="normal"
+                  // onClick={onClose}
+                  borderRadius="sm"
+                >
+                  Cancel
+                </Button>
+              </HStack>
+            </Box>
           );
         }}
       </ConnectForm>

@@ -19,4 +19,5 @@ export * from './Components/PageLoading/PageLoading';
 export * from './Components/Pagination/Pagination';
 export * from './Components/Stepper/Stepper';
 export * from './Features/ProjectSetting/ProjectSettingForm';
+export * from "./features/IssueDetail/IssueDetail"
 export * from './Hooks/useFLexGridMaker/useFLexGridMaker';

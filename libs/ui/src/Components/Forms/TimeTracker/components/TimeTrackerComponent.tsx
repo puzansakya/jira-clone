@@ -1,58 +1,54 @@
 import {
-  Box,
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  HStack,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  Progress,
-  Text,
-  useDisclosure,
+    Box,
+    Button,
+    Flex,
+    FormControl,
+    FormLabel,
+    HStack,
+    Input,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalOverlay,
+    Progress,
+    Text,
+    useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
 
 import {TimeIcon} from '@chakra-ui/icons';
 
-export const TimeTracking = ({
-                                 value = {
-                                     timeSpent: 0,
-                                     timeEstimated: 0,
-                                 },
-                             }: any) => {
+export const TimeTrackerComponent = (
+    {
+        value = {
+            spent: 10,
+            timeEstimate: 200
+        },
+        onChange: _onChange
+    }: any
+) => {
     const {isOpen, onOpen, onClose} = useDisclosure();
     const [progress, setProgress] = React.useState();
-    const [localValue, setLocalValue] = React.useState<any>({});
 
     const calculatePercentage = (value: any) =>
-        (value?.timeSpent / value?.timeEstimated) * 100;
+        (value?.timeSpent / value?.timeEstimate) * 100;
 
     React.useEffect(() => {
         const progressValue: any = calculatePercentage(value);
         setProgress(progressValue);
-        setLocalValue(value);
-    }, [value]);
-
-    React.useEffect(() => {
-        const progressValue: any = calculatePercentage(localValue);
-        setProgress(progressValue);
-    }, [localValue]);
-
+    }, [value])
     const handleTimeInputChange = (evt: any) => {
-        const {name, value} = evt.target;
+        const {name, value: _val} = evt.target;
 
-        setLocalValue((prev: any) => ({
-            ...prev,
-            [name]: value,
-        }));
+        const nextLocalValue = {...value, [name]: parseInt(_val, 10)}
+        const progressValue: any = calculatePercentage(nextLocalValue);
+        setProgress(progressValue);
+        _onChange?.(nextLocalValue)
     };
+
     return (
         <>
             <Box width="343px">
@@ -71,10 +67,10 @@ export const TimeTracking = ({
 
                         <Flex justifyContent="space-between" mt={1}>
                             <Text fontSize="sm" color="#172B4D">
-                                {value.timeSpent}h logged
+                                {value?.timeSpent}h logged
                             </Text>
                             <Text fontSize="sm" color="#172B4D">
-                                {value.timeEstimated}h estimated
+                                {value?.timeEstimate}h estimated
                             </Text>
                         </Flex>
                     </Box>
@@ -94,10 +90,10 @@ export const TimeTracking = ({
 
                                 <Flex justifyContent="space-between" mt={1}>
                                     <Text fontSize="sm" color="#172B4D">
-                                        {localValue.timeSpent}h logged
+                                        {value?.timeSpent}h logged
                                     </Text>
                                     <Text fontSize="sm" color="#172B4D">
-                                        {localValue.timeEstimated}h estimated
+                                        {value?.timeEstimate}h estimated
                                     </Text>
                                 </Flex>
                             </Box>
@@ -112,18 +108,19 @@ export const TimeTracking = ({
                                     name="timeSpent"
                                     onChange={handleTimeInputChange}
                                     type="number"
-                                    value={localValue.timeSpent}
+                                    value={value?.timeSpent}
                                 />
                             </FormControl>
                             <FormControl>
                                 <FormLabel htmlFor="email">Time remaining (hours)</FormLabel>
                                 <Input
-                                    id="timeRemaining"
-                                    name="timeEstimated"
+                                    id="timeEstimate"
+                                    name="timeEstimate"
                                     borderRadius="sm"
                                     size="sm"
                                     onChange={handleTimeInputChange}
                                     type="number"
+                                    value={value?.timeEstimate}
                                 />
                             </FormControl>
                         </HStack>
@@ -148,4 +145,4 @@ export const TimeTracking = ({
     );
 };
 
-export default TimeTracking;
+export default TimeTrackerComponent;

@@ -6,4 +6,4 @@ export * from "./update-board-data"
 export * from "./update-filter"
 export * from "./update-block-position"
 export * from "./fetch-issue-detail"
-
+export * from "./update-issue"

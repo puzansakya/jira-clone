@@ -14,7 +14,7 @@ const Card = (props: any) => {
             aria-roledescription="Press space bar to lift the block"
           >
             <Box
-              onClick={props.handleOpenIssueDetailModal}
+              onClick={() => props.handleOpenIssueDetailModal(props?.block?.id)}
               w="full"
               mb="2"
               border="1px"
