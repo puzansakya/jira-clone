@@ -1,5 +1,4 @@
-
-import { createSlice } from "@reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 import * as fromInterface from '../../ts';
 
 export interface BoardState {
@@ -31,7 +30,7 @@ const boardSlice = createSlice({
         fetchRequest: (state) => {
             state.status = fromInterface.State.LOADING
         },
-        fetchSuccess: (state, { payload }) => {
+        fetchSuccess: (state, {payload}) => {
             state.boardData = payload
             state.status = fromInterface.State.IDLE
         },
@@ -67,5 +66,12 @@ const boardSlice = createSlice({
     }
 });
 
-export const { updateBoardData, fetchRequest, fetchSuccess, syncFilters, clearFilters, clear } = boardSlice.actions
+export const {
+    updateBoardData,
+    fetchRequest,
+    fetchSuccess,
+    syncFilters,
+    clearFilters,
+    clear
+} = boardSlice.actions
 export default boardSlice.reducer;

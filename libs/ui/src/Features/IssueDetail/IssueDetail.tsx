@@ -69,6 +69,13 @@ export const IssueDetail = (props: IssueDetailProps) => {
                 label: data?.priority.name,
                 value: data?.priority.id
             },
+            assignees: data?.assignees.map((assignee: any) => {
+                return {
+                    label: `${assignee.firstName} ${assignee.lastName}` ,
+                    value: assignee.id,
+                    src: assignee.avatar
+                }
+            }),
         };
     };
 
@@ -239,7 +246,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                 </Select>
 
                                                 <MultiSelect
-                                                    name="assignee"
+                                                    name="assignees"
                                                     label="ASSIGNEES"
                                                     {...inputProps}
                                                     required
@@ -290,7 +297,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                 </Select>
 
                                                 <PxInputText
-                                                    name="timeEstimate"
+                                                    name="estimate"
                                                     label="ORIGINAL ESTIMATE (HOURS)"
                                                     {...inputProps}
                                                     required

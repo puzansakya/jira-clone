@@ -28,9 +28,10 @@ import Board from './board';
 //STORE
 import * as fromProjectBoardStore from '../../store/@project-board';
 import * as fromBoardStore from '../../store/board';
+import * as fromIssueStore from '../../store/board';
 import * as fromUserStore from '../../store/user';
-import * as fromIssueStore from "../../store/board";
-import * as fromIssueDetailPageStore from '../../store/@issue-detail';
+import * as fromPriorityStore from "../../store/priority";
+import * as fromStatusStore from "../../store/status";
 
 import {isEmpty} from 'lodash';
 import {IssueDetail} from "ui";
@@ -117,6 +118,11 @@ const ProjectBoard = () => {
     const isFilterClearable = useSelector(fromBoardStore.selectIsFilterClearable);
     const users = useSelector(fromUserStore.selectItems);
 
+    const userDropdownCollections = useSelector(fromUserStore.selectDropdownItems);
+    const priorityDropodownCollections = useSelector(fromPriorityStore.selectDropdownItems);
+    const statusDropdownCollections = useSelector(fromStatusStore.selectDropdownItems);
+
+
     // FUNCTIONS
     React.useEffect(() => {
         dispatch(fromProjectBoardStore.fetchPageData());
@@ -126,7 +132,7 @@ const ProjectBoard = () => {
         };
     }, [dispatch]);
 
-    const handleOpenIssueDetailModal = (issueId:number) => {
+    const handleOpenIssueDetailModal = (issueId: number) => {
 
         setSelectedIssueId(issueId)
         onOpen()
@@ -253,10 +259,10 @@ const ProjectBoard = () => {
                 <IssueDetail
                     isOpen={isOpen}
                     onClose={onClose}
-                    statusOptions={STATUS_OPTIONS}
-                    assigneeOptions={ASSIGNEE_OPTIONS}
-                    reporterOptions={REPORTER_OPTIONS}
-                    priorityOptions={PRIORITY_OPTIONS}
+                    statusOptions={statusDropdownCollections}
+                    assigneeOptions={userDropdownCollections}
+                    reporterOptions={userDropdownCollections}
+                    priorityOptions={priorityDropodownCollections}
                     onFetchDetail={() => {
                         // const INITIAL_FORM_DATA = {
                         //     name: 'Each issue can be assigned priority from lowest to highest.',
@@ -272,12 +278,12 @@ const ProjectBoard = () => {
                         // return new Promise((resolve, reject) => {
                         //     resolve(INITIAL_FORM_DATA)
                         // })
-                      return dispatch(fromIssueStore.fetchIssueDetail(selectedIssueId))
+                        return dispatch(fromIssueStore.fetchIssueDetail(selectedIssueId))
                         // return dispatch(
                         //     fromIssueDetailPageStore.fetchPageData(issueId)
                         // );
                     }}
-                    onSubmit={async(data: any) => {
+                    onSubmit={async (data: any) => {
                         console.log(JSON.stringify(data, null, 2));
                         await dispatch(fromIssueStore.updateIssue(data));
                     }}

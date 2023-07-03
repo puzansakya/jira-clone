@@ -36,7 +36,7 @@ export const PxUncontrolledComponent = (
 
         _onChange?.(name, value.timeSpent);
         onChangeRHF?.(value.timeSpent);
-        setValue("timeEstimate", value?.timeEstimate)
+        setValue("estimate", value?.timeEstimate)
 
     };
 
@@ -46,7 +46,7 @@ export const PxUncontrolledComponent = (
         };
 
     const valueNormalized = rhfValue ?? value;
-    const timeEstimate = watch?.("timeEstimate")
+    const timeEstimate = watch?.("estimate")
 
     const nextValue = {
         timeSpent: valueNormalized,

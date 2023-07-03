@@ -275,5 +275,17 @@ export const seedComments = [
         userId: seedUsers[0].id,
         issueId: seedIssues[0].id,
     },
+]
 
+export const seedAssignees = [
+    {
+        id: faker.datatype.uuid(),
+        issueId: seedIssues[0].id,
+        userId: seedUsers[0].id,
+    },
+    {
+        id: faker.datatype.uuid(),
+        issueId: seedIssues[0].id,
+        userId: seedUsers[1].id,
+    },
 ]

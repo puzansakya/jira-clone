@@ -26,7 +26,7 @@ const Card = (props: any) => {
               shadow="sm"
               _hover={{ bg: 'gray.50' }}
             >
-              <Text fontSize="sm">{props.block.description}</Text>
+              <Text fontSize="sm">{props.block.descriptionText}</Text>
               <Flex justifyContent="space-between" mt={3} alignItems="center">
                 <HStack spacing={1}>
                   <CheckCircleIcon h={4} w={4} color="blue.500" />
