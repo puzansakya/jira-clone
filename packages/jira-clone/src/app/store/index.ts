@@ -7,8 +7,6 @@ import board from "./board/slice";
 import user from "./user/slice";
 import status from "./status/slice";
 import priority from "./priority/slice";
-// import projectCategory from "./project-category/slice";
-// import projectSetting from "./project-setting/slice";
 
 export const store = configureStore({
     reducer: {
@@ -16,8 +14,6 @@ export const store = configureStore({
         user,
         status,
         priority,
-        // projectCategory,
-        // projectSetting,
 
         // Add the generated reducer as a specific top-level slice
         [pokemonApi.reducerPath]: pokemonApi.reducer,

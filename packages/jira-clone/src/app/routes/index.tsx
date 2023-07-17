@@ -1,29 +1,28 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import {createBrowserRouter} from 'react-router-dom';
 
-import { RouteEnum } from './routeEnum';
+import {RouteEnum} from './routeEnum';
 
 // COMPONENTS
-import Error from '../components/error';
+import {ErrorPlaceholder} from 'ui';
 import ProjectBoard from '../pages/projectBoard';
 import ProjectSetting from '../pages/projectSetting';
 import AppShell from '../components/appShell';
-// import Error from '../components/error/error';
 
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <AppShell />,
-        errorElement: <Error />,
+        errorElement: <ErrorPlaceholder />,
         children: [
             {
                 path: RouteEnum.PROJECTBOARD,
                 element: <ProjectBoard />,
-                errorElement: <Error />,
+                errorElement: <ErrorPlaceholder />,
             },
             {
                 path: RouteEnum.PROJECTSETTING,
                 element: <ProjectSetting />,
-                errorElement: <Error />,
+                errorElement: <ErrorPlaceholder />,
             },
         ]
     },
