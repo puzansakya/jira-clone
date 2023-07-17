@@ -1,4 +1,4 @@
-import { Model } from 'objection';
+import {Model} from 'objection';
 import BaseModel from '../../../core/BaseModel';
 import IssuePriority from '../../issuePriority/domain/issuePriority';
 import IssueStatus from '../../issueStatus/domain/issueStatus';
@@ -7,7 +7,7 @@ import Project from '../../project/domain/project';
 import User from '../../user/domain/user';
 
 export default class Issue extends BaseModel {
-    name?: string;
+    title: string;
     listPosition?: number;
     description?: string;
     descriptionText?: string;
@@ -20,6 +20,7 @@ export default class Issue extends BaseModel {
     priorityId?: number;
     reporterId?: number;
     projectId?: number;
+    assignees?: string[]
 
     static tableName = 'issues';
 
@@ -64,5 +65,17 @@ export default class Issue extends BaseModel {
                 to: 'users.id'
             }
         },
+        assignees: {
+            relation: Model.ManyToManyRelation,
+            modelClass: User,
+            join: {
+                from: "issues.id",
+                through: {
+                    from: "assignees.issueId",
+                    to: "assignees.userId"
+                },
+                to: "users.id"
+            }
+        }
     };
 }

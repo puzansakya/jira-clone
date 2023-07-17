@@ -1,4 +1,6 @@
-export * from './components/Sidebar/Sidebar';
+export * from './Components/SecondarySidebar/SecondarySidebar';
+export * from './Components/ErrorPlaceholder/ErrorPlaceholder';
+export * from './Components/Sidebar-sample/SidebarSample';
 export * from './Components/Forms/RadioGroup';
 export * from './Components/Forms/InputEditable/PxDefault';
 export * from './Components/Forms/TimeTracking/TimeTracking';
@@ -18,5 +20,8 @@ export * from './Components/NotFound/NotFound';
 export * from './Components/PageLoading/PageLoading';
 export * from './Components/Pagination/Pagination';
 export * from './Components/Stepper/Stepper';
+export * from './Components/Sidebar/Sidebar';
 export * from './Features/ProjectSetting/ProjectSettingForm';
+export * from "./features/IssueDetail/IssueDetail"
+export * from "./features/create-issue-modal"
 export * from './Hooks/useFLexGridMaker/useFLexGridMaker';

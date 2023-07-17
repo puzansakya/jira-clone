@@ -14,7 +14,7 @@ const Card = (props: any) => {
             aria-roledescription="Press space bar to lift the block"
           >
             <Box
-              onClick={props.handleOpenIssueDetailModal}
+              onClick={() => props.handleOpenIssueDetailModal(props?.block?.id)}
               w="full"
               mb="2"
               border="1px"
@@ -26,7 +26,7 @@ const Card = (props: any) => {
               shadow="sm"
               _hover={{ bg: 'gray.50' }}
             >
-              <Text fontSize="sm">{props.block.description}</Text>
+              <Text fontSize="sm">{props.block.descriptionText}</Text>
               <Flex justifyContent="space-between" mt={3} alignItems="center">
                 <HStack spacing={1}>
                   <CheckCircleIcon h={4} w={4} color="blue.500" />

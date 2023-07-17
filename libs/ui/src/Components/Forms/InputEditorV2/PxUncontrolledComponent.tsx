@@ -73,7 +73,7 @@ export const PxUncontrolledComponent = (
           onChange={handleChange}
           {...inputProps}
           {...rest}
-          value={localValue}
+          value={localValue }
         />
         <Flex gap={2}>
           <Button

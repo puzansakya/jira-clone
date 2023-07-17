@@ -1,18 +1,18 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import type { Meta } from '@storybook/react';
-import { Sidebar } from './Sidebar';
+import { SidebarSample } from './SidebarSample';
 
-const Story: Meta<typeof Sidebar> = {
+const meta: Meta<typeof SidebarSample> = {
   component: (args) => {
     return (
       <ChakraProvider>
-        <Sidebar {...args} />
+        <SidebarSample {...args} />
       </ChakraProvider>
     );
   },
   title: 'Sidebar',
 };
-export default Story;
+export default meta;
 
 export const Primary = {
   args: {},

@@ -11,6 +11,7 @@ npx knex migrate:make --knexfile packages/jira-clone-backend/knexfile.ts -x ts c
 npx knex migrate:make --knexfile packages/jira-clone-backend/knexfile.ts -x ts create_issues
 npx knex migrate:make --knexfile packages/jira-clone-backend/knexfile.ts -x ts create_project_users
 npx knex migrate:make --knexfile packages/jira-clone-backend/knexfile.ts -x ts create_comments
+npx knex migrate:make --knexfile packages/jira-clone-backend/knexfile.ts -x ts create_assignees
 
 
 // seeds

@@ -1,60 +1,87 @@
 // LIBS
-import { useDispatch } from 'react-redux';
-import { Outlet, useNavigate } from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
 
 // STORE
-
 // COMPONENTS
-
 // CHAKRA UI
-import { Box, Flex, useColorMode, useDisclosure } from '@chakra-ui/react';
+import {Box, Flex, useDisclosure} from '@chakra-ui/react';
 import React from 'react';
-import Sidebar from '../sidebar';
-import { PageLoading } from 'ui';
-import Navigator from '../navigator';
-import CreateIssueModal from '../create-issue-modal';
+import {CreateIssueModal, PageLoading, SecondarySidebar, Sidebar} from 'ui';
+import {RouteEnum} from "../../routes/routeEnum";
+import {ISSUE_TYPE_OPTIONS} from "../../../../../../libs/ui/src/Features/create-issue-modal/default-values";
+import {useDispatch, useSelector} from "react-redux";
+import * as fromStatusStore from "../../store/status";
+import * as fromUserStore from "../../store/user";
+import * as fromPriorityStore from "../../store/priority";
 
 /* eslint-disable-next-line */
-export interface AppShellProps {}
+export interface AppShellProps {
+}
 
 export function AppShell(props: AppShellProps) {
-  // VARIABLES
+    // VARIABLES
 
-  // HOOKS
+    // HOOKS
+    const dispatch = useDispatch();
+    const [loader, setLoader] = React.useState(true);
+    const {isOpen, onOpen, onClose} = useDisclosure();
 
-  const [loader, setLoader] = React.useState(true);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+    // SELECTORS
+    const userDropdownCollections = useSelector(fromUserStore.selectDropdownItems);
+    const priorityDropdownCollections = useSelector(fromPriorityStore.selectDropdownItems);
 
-  React.useEffect(() => {
-    setTimeout(() => {
-      setLoader(false);
-    }, 1000);
-  }, []);
+    // FUNCTIONS
+    React.useEffect(() => {
+        dispatch(fromPriorityStore.fetchPriorities())
+        dispatch(fromUserStore.fetchUsers())
 
-  if (loader) {
-    return <PageLoading />;
-  }
+        setTimeout(() => {
+            setLoader(false);
+        }, 1000);
+    }, [dispatch]);
 
-  const handleOpenCreateIssueModal = () => onOpen();
+    if (loader) {
+        return <PageLoading/>;
+    }
 
-  // LOCAL STATE
+    const handleOpenCreateIssueModal = () => onOpen();
 
-  // SELECTORS
+    // LOCAL STATE
 
-  // FUNCITONS
+    // SELECTORS
 
-  return (
-    <Flex>
-      <Sidebar handleOpenCreateIssueModal={handleOpenCreateIssueModal} />
-      <Flex pl={14} w="full">
-        <Navigator />
-        <Box flex={1}>
-          <Outlet />
-        </Box>
-      </Flex>
-      <CreateIssueModal isOpen={isOpen} onClose={onClose} />
-    </Flex>
-  );
+    // FUNCTIONS
+
+    return (
+        <Flex>
+            <Sidebar handleOpenCreateIssueModal={handleOpenCreateIssueModal}/>
+            <Flex pl={14} w="full">
+                <SecondarySidebar
+                    items={[
+                        'Releases',
+                        'Issues and filters',
+                        'Pages',
+                        'Reports',
+                        'Components',
+                    ]}
+                    routeEnum={RouteEnum}
+                />
+                <Box flex={1}>
+                    <Outlet/>
+                </Box>
+            </Flex>
+            <CreateIssueModal
+                isOpen={isOpen}
+                onClose={onClose}
+                issueTypeOptions={ISSUE_TYPE_OPTIONS}
+                reporterOptions={userDropdownCollections}
+                priorityOptions={priorityDropdownCollections}
+                onSubmit={(data: any) => {
+                    console.log(JSON.stringify(data, null, 2));
+                }}
+            />
+        </Flex>
+    );
 }
 
 export default AppShell;

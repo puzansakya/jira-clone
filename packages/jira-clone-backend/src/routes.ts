@@ -4,6 +4,7 @@ import ProjectController from "./packages/project/controller"
 import IssueController from "./packages/issue/controller"
 import UserController from "./packages/user/controller"
 import StatusController from "./packages/issueStatus/controller"
+import PriorityController from "./packages/issuePriority/controller"
 
 const API_NAMESAPCE = "/api/v1"
 
@@ -28,5 +29,9 @@ export const Routes: any = {
     status: {
         path: `${API_NAMESAPCE}/statuses`,
         controller: StatusController,
+    },
+    priority: {
+        path: `${API_NAMESAPCE}/priorities`,
+        controller: PriorityController,
     },
 }
