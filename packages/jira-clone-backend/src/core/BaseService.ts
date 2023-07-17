@@ -272,6 +272,16 @@ class BaseService {
   }
 
   /**
+   * BULK INSERT WITH PROVIDED GRAPH
+   * @param Model
+   * @param payload
+   * @returns
+   */
+  public async _update_graph(Model: any, payload: any) {
+    return await Model.query().upsertGraph(payload);
+  }
+
+  /**
    * UPDATE ENNTITY
    * @param Model 
    * @param id 
@@ -286,11 +296,9 @@ class BaseService {
       .debug(true);
 
     if (result) {
-      const resultUpdate = await Model.query()
-        .patch({ ...result, ...payload, modifiedAt: new Date() })
-        .where({ id: id });
-
-      return resultUpdate;
+      return await Model.query()
+          .patch({...result, ...payload, modifiedAt: new Date()})
+          .where({id: id});
     }
 
     throw { message: 'not found with id ' + id };

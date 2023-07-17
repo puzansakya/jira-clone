@@ -20,6 +20,7 @@ export default class Issue extends BaseModel {
     priorityId?: number;
     reporterId?: number;
     projectId?: number;
+    assignees?: string[]
 
     static tableName = 'issues';
 
@@ -64,5 +65,17 @@ export default class Issue extends BaseModel {
                 to: 'users.id'
             }
         },
+        assignees: {
+            relation: Model.ManyToManyRelation,
+            modelClass: User,
+            join: {
+                from: "issues.id",
+                through: {
+                    from: "assignees.issueId",
+                    to: "assignees.userId"
+                },
+                to: "users.id"
+            }
+        }
     };
 }

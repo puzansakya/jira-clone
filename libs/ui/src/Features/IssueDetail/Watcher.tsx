@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 const transformToSubmitValues = (data: any) => {
   return {
     ...data,
-    status: data.status.value,
-    assignee: data.assignee.map((x: any) => x.value) ?? [],
-    reporter: data.reporter.value,
-    priority: data.priority.value,
+    statusId: data.status.value,
+    assignees: data.assignees.map((x: any) => x.value) ?? [],
+    reporterId: data.reporter.value,
+    priorityId: data.priority.value,
   };
 };
 

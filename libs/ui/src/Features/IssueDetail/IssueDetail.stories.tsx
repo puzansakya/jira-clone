@@ -105,7 +105,7 @@ const Story: Meta<typeof IssueDetail> = {
             </ChakraProvider>
         );
     },
-    title: 'Features/Issue Detail/ Issue Detail Form',
+    title: 'Features/Issue/ Issue Detail Form',
 };
 export default Story;
 
