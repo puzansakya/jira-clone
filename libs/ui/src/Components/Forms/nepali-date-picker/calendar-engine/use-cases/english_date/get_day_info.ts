@@ -20,27 +20,33 @@ export const get_day_info = (weekNum: any, weekDayNum: any, calendar_date: any, 
 
     let day = weekNum * 7 + weekDayNum - firstDay;
     let month: number = inputDate.getMonth() + 1;
-    const year: number = inputDate.getFullYear();
+    let year: number = inputDate.getFullYear();
 
     const total_no_of_days_in_this_month = ENGLISH_DATE.get_total_days_in_month(new Date(formattedDate))
 
     let isCurrentMonth = true;
 
     if (day <= 0) {
+        month = month === 1 ? 12 : month - 1;
+        isCurrentMonth = false
+        year = month === 0 ? year - 1 : year
+
         const stiched = from_utilities.stitch_date({
             year,
-            month: month - 1,
+            month,
             day: 1
         })
         const total_no_of_days_in_previous_month = ENGLISH_DATE.get_total_days_in_month(new Date(stiched))
+
         day = total_no_of_days_in_previous_month + day
-        month = month - 1
-        isCurrentMonth = false
+
     } else if (day > total_no_of_days_in_this_month) {
         day = day - total_no_of_days_in_this_month
-        month = month + 1
+        month = month === 12 ? 1 : month + 1;
         isCurrentMonth = false
+        year = month === 11 ? year + 1 : year
     }
+
 
     const latest_stiched_date = from_utilities.stitch_date({
         year,
@@ -49,10 +55,9 @@ export const get_day_info = (weekNum: any, weekDayNum: any, calendar_date: any, 
     })
     const converted_nepali_date = ADToBS(new Date(latest_stiched_date))
 
-
     const splitted_nepali_date = converted_nepali_date.split("-");
 
-    // LOGIC IS WRONG HERE
+
     let isToday = false
     let isSelected = false
 
