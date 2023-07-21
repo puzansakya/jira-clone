@@ -10,6 +10,10 @@ import * as fromCalendarEngine from "./calendar-engine";
 import "./style.scss"
 
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineLeft, AiOutlineRight} from 'react-icons/ai';
+import {When} from "react-if";
+
+export const childOf = (childNode: any, parentNode: any): boolean =>
+    parentNode.contains(childNode);
 
 
 interface NepaliDatePickerProps {
@@ -20,14 +24,68 @@ interface NepaliDatePickerProps {
 
 export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePickerProps) => {
 
+    // VARIABLES
+    const nepaliDatePickerWrapper = React.useRef<HTMLDivElement>(null);
+    const nepaliDatePickerInput = React.useRef<HTMLInputElement>(null);
+
+    // LOCAL STATE
+    const [showCalendar, setShowCalendar] = React.useState<boolean>(false);
     const [_calendarDate, _setCalendarDate] = React.useState("")
     const [_date, _setDate] = React.useState("")
+
+
+    // FUNCTIONS
+
+    const handleClickOutside = React.useCallback((event: any) => {
+        if (
+            nepaliDatePickerWrapper.current &&
+            childOf(event.target, nepaliDatePickerWrapper.current)
+        ) {
+            return;
+        }
+
+        setShowCalendar(false);
+    }, []);
+
+
+    React.useLayoutEffect(() => {
+        if (showCalendar) {
+            document.addEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showCalendar]);
 
     React.useEffect(() => {
         _setCalendarDate(calendarDate)
     }, [
         calendarDate
     ])
+
+
+    React.useLayoutEffect(() => {
+        if (showCalendar && nepaliDatePickerWrapper.current) {
+            const nepaliDatePicker =
+                nepaliDatePickerWrapper.current.getBoundingClientRect();
+            const screenHeight = window.innerHeight;
+
+            const calender: HTMLDivElement | null =
+                nepaliDatePickerWrapper.current.querySelector('.calender');
+            if (calender) {
+                setTimeout(() => {
+                    const calenderHeight = calender.clientHeight;
+
+                    if (calenderHeight + nepaliDatePicker.bottom > screenHeight) {
+                        if (calenderHeight < nepaliDatePicker.top) {
+                            calender.style.bottom = `${nepaliDatePicker.height}px`;
+                        }
+                    }
+                }, 0);
+            }
+        }
+    }, [showCalendar]);
 
     React.useEffect(() => {
         _setDate(date)
@@ -41,58 +99,71 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
         _setDate(formattedTodayDate)
     }
 
-    return <Box className="nepali-date-picker">
-        <CustomInput onChange={(date: string) => {
-            _setDate(date)
-        }} value={_date}/>
+    return <div ref={nepaliDatePickerWrapper} className="nepali-date-picker">
 
-        <Box className="calender">
-            <Box className="calender-wrapper">
-                <CalendarController
-                    calendar_date={_calendarDate}
-                    onNextMonth={() => {
-                        const nextMonthDate = fromCalendarEngine.ENGLISH_DATE.get_next_month_date(_calendarDate)
-                        _setCalendarDate(nextMonthDate)
-                    }}
-                    onPreviousMonth={() => {
-                        const previousMonthDate = fromCalendarEngine.ENGLISH_DATE.get_previous_month_date(_calendarDate)
-                        _setCalendarDate(previousMonthDate)
-                    }}
-                    onNextYear={() => {
-                        const nextYearDate = fromCalendarEngine.ENGLISH_DATE.get_next_year_date(_calendarDate)
-                        _setCalendarDate(nextYearDate)
-                    }}
-                    onPreviousYear={() => {
-                        const previousYearDate = fromCalendarEngine.ENGLISH_DATE.get_previous_year_date(_calendarDate)
-                        _setCalendarDate(previousYearDate)
-                    }}
-                    onYearSelect={(calendar_date: any) => {
-                        console.log(calendar_date)
-                        _setCalendarDate(calendar_date)
-                    }}
-                    onMonthSelect={(calendar_date: string) => {
-                        console.log(calendar_date)
-                        _setCalendarDate(calendar_date)
-                    }}
-                />
-                <MonthYearPanel date={_calendarDate}/>
-                <Table>
-                    <DayPickerHeader/>
-                    <DatePickerBody
-                        date={_date}
-                        dateType={dateType}
-                        calendarDate={_calendarDate}
-                        onSelectDate={(formattedDate: any) => {
-                            console.log(formattedDate)
-                            _setDate(formattedDate)
-                        }}/>
-                </Table>
-                <Box onClick={onTodayClickHandler}>
-                    Today
+        <CustomInputWithRefForwarded
+            ref={nepaliDatePickerInput}
+            value={_date}
+            onChange={(val: string) => {
+                _setDate(val)
+                _setCalendarDate(val)
+            }}
+            onClick={() => setShowCalendar(visible => !visible)}
+        />
+
+        <When condition={showCalendar && date}>
+
+
+            <Box className="calender">
+                <Box className="calender-wrapper">
+                    <CalendarController
+                        calendar_date={_calendarDate}
+                        onNextMonth={() => {
+                            const nextMonthDate = fromCalendarEngine.ENGLISH_DATE.get_next_month_date(_calendarDate)
+                            _setCalendarDate(nextMonthDate)
+                        }}
+                        onPreviousMonth={() => {
+                            const previousMonthDate = fromCalendarEngine.ENGLISH_DATE.get_previous_month_date(_calendarDate)
+                            _setCalendarDate(previousMonthDate)
+                        }}
+                        onNextYear={() => {
+                            const nextYearDate = fromCalendarEngine.ENGLISH_DATE.get_next_year_date(_calendarDate)
+                            _setCalendarDate(nextYearDate)
+                        }}
+                        onPreviousYear={() => {
+                            const previousYearDate = fromCalendarEngine.ENGLISH_DATE.get_previous_year_date(_calendarDate)
+                            _setCalendarDate(previousYearDate)
+                        }}
+                        onYearSelect={(calendar_date: any) => {
+                            console.log(calendar_date)
+                            _setCalendarDate(calendar_date)
+                        }}
+                        onMonthSelect={(calendar_date: string) => {
+                            console.log(calendar_date)
+                            _setCalendarDate(calendar_date)
+                        }}
+                    />
+                    <MonthYearPanel date={_calendarDate}/>
+                    <Table>
+                        <DayPickerHeader/>
+                        <DatePickerBody
+                            date={_date}
+                            dateType={dateType}
+                            calendarDate={_calendarDate}
+                            onSelectDate={(formattedDate: any) => {
+                                console.log(formattedDate)
+                                setShowCalendar(false);
+                                _setDate(formattedDate)
+                            }}/>
+                    </Table>
+                    <Box onClick={onTodayClickHandler}>
+                        Today
+                    </Box>
                 </Box>
             </Box>
-        </Box>
-    </Box>
+        </When>
+
+    </div>
 
 }
 
@@ -147,16 +218,6 @@ const DatePickerBody = ({date, calendarDate, dateType, onSelectDate}: DatePicker
                             normalized_calendar_date,
                             normalized_date,
                         );
-
-                        // const sx = {
-                        //     ...(dayInfo.isSelected && {
-                        //         bg:"blue.500",
-                        //         color:"gray.100",
-                        //         borderRadius:"full",
-                        //         px:1,
-                        //         py:2
-                        //     }),
-                        // }
 
                         return (
                             <Td
@@ -428,3 +489,9 @@ export const CustomInput = ({onChange, value, ...rest}: CustomInputProps) => {
         </Box>
     );
 };
+
+export const CustomInputWithRefForwarded = React.forwardRef(
+    (props: any, ref) => {
+        return <CustomInput ref={ref} {...props} />;
+    },
+);
