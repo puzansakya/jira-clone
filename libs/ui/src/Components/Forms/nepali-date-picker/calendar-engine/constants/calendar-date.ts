@@ -1,18 +1,3 @@
-
-export const ENGLISH_MONTHS =[
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-];
 export const months = {
     en: [
         "Baisakh",
@@ -30,6 +15,21 @@ export const months = {
     ],
     ne: ["बैशाख", "जेठ", "असार", "सावन", "भदौ", "असोज", "कार्तिक", "मंसिर", "पौष", "माघ", "फागुन", "चैत"],
 };
+
+export const ENGLISH_MONTHS = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+];
 
 export const weeks = {
     en: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],

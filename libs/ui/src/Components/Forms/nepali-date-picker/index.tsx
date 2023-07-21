@@ -1,9 +1,15 @@
-import React from "react";
-import {Box, Flex, Input, Select, Table, Tbody, Td, Text, Thead, Tr} from "@chakra-ui/react"
-import * as fromCalendarEngine from "./calendar-engine";
-import {englishToNepaliNumber} from 'nepali-number';
-import "./style.scss"
+import React, {useMemo} from "react";
+
+import {Box, Button, Flex, Input, Select, Table, Tbody, Td, Text, Thead, Tr} from "@chakra-ui/react"
+
 import {ADToBS} from "bikram-sambat-js"
+import {englishToNepaliNumber} from 'nepali-number';
+import dayjs from 'dayjs';
+
+import * as fromCalendarEngine from "./calendar-engine";
+import "./style.scss"
+
+import {AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineLeft, AiOutlineRight} from 'react-icons/ai';
 
 
 interface NepaliDatePickerProps {
@@ -29,15 +35,21 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
         date
     ])
 
-    return <Box className="nepali-date-picker">
+    const onTodayClickHandler = () => {
+        const formattedTodayDate = dayjs().format('YYYY-MM-DD');
+        _setCalendarDate(formattedTodayDate)
+        _setDate(formattedTodayDate)
+    }
 
-        <CustomInput onChange={(date:string) => {
+    return <Box className="nepali-date-picker">
+        <CustomInput onChange={(date: string) => {
             _setDate(date)
-        }} value={_date} />
+        }} value={_date}/>
 
         <Box className="calender">
             <Box className="calender-wrapper">
                 <CalendarController
+                    calendar_date={_calendarDate}
                     onNextMonth={() => {
                         const nextMonthDate = fromCalendarEngine.ENGLISH_DATE.get_next_month_date(_calendarDate)
                         _setCalendarDate(nextMonthDate)
@@ -46,8 +58,20 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
                         const previousMonthDate = fromCalendarEngine.ENGLISH_DATE.get_previous_month_date(_calendarDate)
                         _setCalendarDate(previousMonthDate)
                     }}
-                    calendar_date={_calendarDate}
+                    onNextYear={() => {
+                        const nextYearDate = fromCalendarEngine.ENGLISH_DATE.get_next_year_date(_calendarDate)
+                        _setCalendarDate(nextYearDate)
+                    }}
+                    onPreviousYear={() => {
+                        const previousYearDate = fromCalendarEngine.ENGLISH_DATE.get_previous_year_date(_calendarDate)
+                        _setCalendarDate(previousYearDate)
+                    }}
+                    onYearSelect={(calendar_date: any) => {
+                        console.log(calendar_date)
+                        _setCalendarDate(calendar_date)
+                    }}
                     onMonthSelect={(calendar_date: string) => {
+                        console.log(calendar_date)
                         _setCalendarDate(calendar_date)
                     }}
                 />
@@ -55,10 +79,17 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
                 <Table>
                     <DayPickerHeader/>
                     <DatePickerBody
-                        date={date}
+                        date={_date}
                         dateType={dateType}
-                        calendarDate={_calendarDate}/>
+                        calendarDate={_calendarDate}
+                        onSelectDate={(formattedDate: any) => {
+                            console.log(formattedDate)
+                            _setDate(formattedDate)
+                        }}/>
                 </Table>
+                <Box onClick={onTodayClickHandler}>
+                    Today
+                </Box>
             </Box>
         </Box>
     </Box>
@@ -84,11 +115,11 @@ const DayPickerHeader = () => {
 interface DatePickerBodyProps {
     date: string,
     calendarDate: fromCalendarEngine.type_calendar_mode,
-    dateType: string
-
+    dateType: string,
+    onSelectDate: any,
 }
 
-const DatePickerBody = ({date, calendarDate, dateType}: DatePickerBodyProps) => {
+const DatePickerBody = ({date, calendarDate, dateType, onSelectDate}: DatePickerBodyProps) => {
     const normalized_calendar_date = fromCalendarEngine.ENGLISH_DATE.get_normalized_date(calendarDate, dateType);
     const normalized_date = fromCalendarEngine.ENGLISH_DATE.get_normalized_date(date, dateType);
 
@@ -97,10 +128,16 @@ const DatePickerBody = ({date, calendarDate, dateType}: DatePickerBodyProps) => 
             new Date(normalized_calendar_date),
         );
 
+    const handleDaySelection = (dayInfo: any) => {
+        const selectedDate = new Date(dayInfo.year, dayInfo.month - 1, dayInfo.day);
+        const formattedDate = dayjs(selectedDate).format('YYYY-MM-DD');
+        onSelectDate(formattedDate);
+    }
+
     return <Tbody>
 
         {fromCalendarEngine
-            .range(0, weeks_in_english_month)
+            .range(0, weeks_in_english_month - 1)
             .map((weekNum: number) => (
                 <Tr key={weekNum}>
                     {fromCalendarEngine.range(1, 7).map((weekDayNum: number) => {
@@ -110,14 +147,26 @@ const DatePickerBody = ({date, calendarDate, dateType}: DatePickerBodyProps) => 
                             normalized_calendar_date,
                             normalized_date,
                         );
+
+                        // const sx = {
+                        //     ...(dayInfo.isSelected && {
+                        //         bg:"blue.500",
+                        //         color:"gray.100",
+                        //         borderRadius:"full",
+                        //         px:1,
+                        //         py:2
+                        //     }),
+                        // }
+
                         return (
                             <Td
                                 key={weekDayNum}
-                                className={`month-day ${
-                                    dayInfo.isCurrentMonth ? 'current' : 'disabled'
-                                } ${dayInfo.isToday ? 'today' : ''} ${
-                                    dayInfo.isSelected ? 'selected' : ''
-                                }`}
+                                className={`month-day 
+                                    ${dayInfo.isCurrentMonth ? 'current' : 'disabled'} 
+                                    ${dayInfo.isToday ? 'today' : ''}
+                                    ${dayInfo.isSelected ? 'selected' : ''}
+                                `}
+                                onClick={() => handleDaySelection(dayInfo)}
                             >
                                 <Flex gap={1} alignItems={'end'}>
                                     <Text>{dayInfo.day}</Text>
@@ -134,87 +183,54 @@ const DatePickerBody = ({date, calendarDate, dateType}: DatePickerBodyProps) => 
 };
 
 interface CalendarControllerProps {
+    calendar_date: fromCalendarEngine.type_calendar_mode,
     onPreviousMonth: any;
     onNextMonth: any;
-    calendar_date: string;
+    onNextYear: any;
+    onPreviousYear: any;
+    onYearSelect: (calendar_date: string) => void;
     onMonthSelect: (calendar_date: string) => void
 }
 
 export const CalendarController = ({
                                        onPreviousMonth,
                                        onNextMonth,
-                                       calendar_date,
-                                       onMonthSelect
+                                       onNextYear,
+                                       onPreviousYear,
+                                       onYearSelect,
+                                       onMonthSelect,
+                                       calendar_date
                                    }: CalendarControllerProps) => {
+
     return (
-        <div className="calendar-controller">
-            <span className="control icon" onClick={onPreviousMonth}>
-                previous {/*<PreviousIcon />*/}
-            </span>
+        <Flex justifyContent='space-between'>
 
-            <div className="date-indicator">
+            <Flex gap='5px'>
+                <Button size='xs' variant='link' onClick={onPreviousYear}>
+                    <AiOutlineDoubleLeft/>
+                </Button>
+                <Button size='xs' variant='link' onClick={onPreviousMonth}>
+                    <AiOutlineLeft/>
+                </Button>
+            </Flex>
+
+            <Flex gap='5px'>
                 <MonthPicker calendar_date={calendar_date} onSelect={onMonthSelect}/>
-                {/*<YearPicker date={calenderDate} onSelect={onYearSelect} />*/}
-            </div>
-            {/*
-            <span className='control icon icon-today' title={trans("today")} onClick={onToday}>
-                <TodayIcon color='#2096f5' />
-            </span> */}
+                <YearPicker calendarDate={calendar_date} onYearSelect={onYearSelect}/>
+            </Flex>
 
-            <span className="control icon"
-                  onClick={onNextMonth}>
+            <Flex gap='5px'>
+                <Button size='xs' variant='link' onClick={onNextMonth}>
+                    <AiOutlineRight/>
+                </Button>
+                <Button size='xs' variant='link' onClick={onNextYear}>
+                    <AiOutlineDoubleRight/>
+                </Button>
+            </Flex>
 
-                next {/*<NextIcon />*/}
-            </span>
-        </div>
+        </Flex>
     );
 }
-
-
-/**
- * {
- *   "adDate": "2023-07-10T00:00:00.000Z",
- *   "bsDay": 25,
- *   "bsMonth": 3,
- *   "bsYear": 2080,
- *   "firstAdDayInBSMonth": "2023-06-16T00:00:00.000Z",
- *   "numberOfDaysInBSMonth": 31,
- *   "weekDay": 1
- * }
- */
-
-const nepaliMonthMap: any = {
-    0: 'पुस - माघ',
-    1: 'माघ - फागुन',
-    2: 'फागुन - चैत',
-    3: 'चैत - बैशाख',
-    4: 'बैशाख - जेठ',
-    5: 'जेठ - असार',
-    6: 'असार - साउन',
-    7: 'साउन - भदौ',
-    8: 'भदौ - असौज',
-    9: 'असौज - कात्तिक',
-    10: 'कात्तिक - मंसीर',
-    11: 'मंसीर - पुस',
-};
-
-interface MonthYearPanelProps {
-    date: string;
-}
-
-export const MonthYearPanel = ({date}: MonthYearPanelProps) => {
-
-    const now = new Date(date)
-    const month = now.getMonth();
-    const converted_nepali_date = ADToBS(now);
-    const splited_nepali_date = converted_nepali_date.split("-");
-
-
-    return <Box p={3} bg={'gray.100'} textAlign='center'>
-        {`${nepaliMonthMap[month]} ${splited_nepali_date[0]}`}
-    </Box>
-};
-
 
 interface MonthPickerProps {
     calendar_date: string;
@@ -252,8 +268,8 @@ const MonthPicker = ({calendar_date, onSelect,}: MonthPickerProps) => {
     }
 
     return (
-        <Box className='control month'>
-            <Select placeholder='Select option' value={_selected} onChange={handleMonthSelection}>
+        <Box>
+            <Select size='sm' value={_selected} onChange={handleMonthSelection}>
                 {englishMonthList.map(({label, value}) => {
                     return <option value={value}>{label}</option>
                 })}
@@ -262,10 +278,101 @@ const MonthPicker = ({calendar_date, onSelect,}: MonthPickerProps) => {
     );
 };
 
-interface CustomInputProps extends Record<string, any> {
-    onChange: (date:string) => void,
-    value:string
+
+interface YearPickerProps {
+    calendarDate: string;
+    onYearSelect: (calendar_date: string) => void;
 }
+
+export const YearPicker = ({calendarDate, onYearSelect}: YearPickerProps) => {
+    const [_selected, _setSelected] = React.useState<number>(1);
+
+    React.useEffect(() => {
+        if (calendarDate) {
+            const splited_calendar_date = calendarDate.split("-")
+            _setSelected(parseInt(splited_calendar_date[0]))
+        }
+    }, [calendarDate])
+
+    function range(start: number, end: number): number[] {
+        return Array.from({length: end - start + 1}, (_, i) => start + i);
+    }
+
+    const engyears: any[] = useMemo(
+        (): any[] =>
+            range(1970, 2050)
+                .reverse()
+                .map(
+                    (year: number): any => ({
+                        label: year,
+                        value: year,
+                    }),
+                ),
+        [],
+    );
+
+    const handleYearSelection = (e: any) => {
+        const splited_calendar_date = calendarDate.split("-")
+        const new_date = fromCalendarEngine.stitch_date({
+            year: e.target.value,
+            month: parseInt(splited_calendar_date[1]),
+            day: 1,
+        })
+
+        _setSelected(e.target.value)
+        onYearSelect(new_date)
+    }
+
+    return (
+        <Box>
+            <Select size='sm' value={_selected} onChange={handleYearSelection}>
+                {engyears.map(({label, value}) => {
+                    return <option value={value}>{label}</option>
+                })}
+            </Select>
+        </Box>
+    );
+};
+
+
+const nepaliMonthMap: any = {
+    0: 'पुस - माघ',
+    1: 'माघ - फागुन',
+    2: 'फागुन - चैत',
+    3: 'चैत - बैशाख',
+    4: 'बैशाख - जेठ',
+    5: 'जेठ - असार',
+    6: 'असार - साउन',
+    7: 'साउन - भदौ',
+    8: 'भदौ - असौज',
+    9: 'असौज - कात्तिक',
+    10: 'कात्तिक - मंसीर',
+    11: 'मंसीर - पुस',
+};
+
+interface MonthYearPanelProps {
+    date: string;
+}
+
+export const MonthYearPanel = ({date}: MonthYearPanelProps) => {
+
+    const now = new Date(date)
+    const month = now.getMonth();
+    const converted_nepali_date = ADToBS(now);
+    const splited_nepali_date = converted_nepali_date.split("-");
+    const nepaliyear = englishToNepaliNumber(splited_nepali_date[0]);
+
+
+    return <Box p={3} bg={"#f2f3f5"} borderRadius='5px' textAlign='center' my='5px'>
+        {`${nepaliMonthMap[month]} ${nepaliyear}`}
+    </Box>
+};
+
+interface CustomInputProps extends Record<string, any> {
+    onChange: (date: string) => void,
+    value: string
+}
+
 export const CustomInput = ({onChange, value, ...rest}: CustomInputProps) => {
 
     const [inputDate, setInputDate] = React.useState('');
@@ -282,7 +389,7 @@ export const CustomInput = ({onChange, value, ...rest}: CustomInputProps) => {
 
         const isValid = handleValidation(formattedValue);
         if (isValid) {
-             onChange?.(formattedValue);
+            onChange?.(formattedValue);
         }
     };
 

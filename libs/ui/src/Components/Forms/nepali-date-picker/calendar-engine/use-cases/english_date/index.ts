@@ -6,6 +6,8 @@ import {get_normalized_date} from "./get_normalized_date";
 import {get_eng_day_info} from "./get_eng_day_info";
 import {get_next_month_date} from "./get_next_month_date";
 import {get_previous_month_date} from "./get_previous_month_date";
+import {get_next_year_date} from "./get_next_year_date";
+import {get_previous_year_date} from './get_previous_year_date';
 
 export const ENGLISH_DATE = {
     get_day_info,
@@ -15,5 +17,7 @@ export const ENGLISH_DATE = {
     get_normalized_date,
     get_eng_day_info,
     get_next_month_date,
-    get_previous_month_date
+    get_previous_month_date,
+    get_next_year_date,
+    get_previous_year_date
 }
