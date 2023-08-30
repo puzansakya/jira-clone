@@ -15,6 +15,7 @@ export const Default = {
         date: "2023-07-20",
         dateType: CALENDAR_MODE.ENGLISH,
         calendarDate: "2023-07-20",
+        is_dark: true
     },
     render: (args:any) => {
         return <ChakraProvider>

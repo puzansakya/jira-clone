@@ -1,16 +1,12 @@
 import React, {useMemo} from "react";
-
 import {Box, Button, Flex, Input, Select, Table, Tbody, Td, Text, Thead, Tr} from "@chakra-ui/react"
-
 import {ADToBS} from "bikram-sambat-js"
 import {englishToNepaliNumber} from 'nepali-number';
 import dayjs from 'dayjs';
-
 import * as fromCalendarEngine from "./calendar-engine";
-import "./style.scss"
-
 import {AiOutlineDoubleLeft, AiOutlineDoubleRight, AiOutlineLeft, AiOutlineRight} from 'react-icons/ai';
 import {When} from "react-if";
+import {get_styles } from "./style";
 
 export const childOf = (childNode: any, parentNode: any): boolean =>
     parentNode.contains(childNode);
@@ -19,14 +15,16 @@ export const childOf = (childNode: any, parentNode: any): boolean =>
 interface NepaliDatePickerProps {
     date: string,
     calendarDate: fromCalendarEngine.type_calendar_mode,
-    dateType: string
+    dateType: string,
+    is_dark?:boolean
 }
 
-export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePickerProps) => {
+export const NepaliDatePicker = ({is_dark = false,date, calendarDate, dateType}: NepaliDatePickerProps) => {
 
     // VARIABLES
     const nepaliDatePickerWrapper = React.useRef<HTMLDivElement>(null);
     const nepaliDatePickerInput = React.useRef<HTMLInputElement>(null);
+    const Styles = get_styles(is_dark)
 
     // LOCAL STATE
     const [showCalendar, setShowCalendar] = React.useState<boolean>(false);
@@ -35,7 +33,6 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
 
 
     // FUNCTIONS
-
     const handleClickOutside = React.useCallback((event: any) => {
         if (
             nepaliDatePickerWrapper.current &&
@@ -99,7 +96,10 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
         _setDate(formattedTodayDate)
     }
 
-    return <div ref={nepaliDatePickerWrapper} className="nepali-date-picker">
+    return <div style={{
+        maxWidth:"200px",
+        position: "relative"
+    }} ref={nepaliDatePickerWrapper}>
 
         <CustomInputWithRefForwarded
             ref={nepaliDatePickerInput}
@@ -112,9 +112,7 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
         />
 
         <When condition={showCalendar && date}>
-
-
-            <Box className="calender">
+            <Box sx={Styles.calendar}>
                 <Box className="calender-wrapper">
                     <CalendarController
                         calendar_date={_calendarDate}
@@ -143,10 +141,11 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
                             _setCalendarDate(calendar_date)
                         }}
                     />
-                    <MonthYearPanel date={_calendarDate}/>
-                    <Table>
+                    <MonthYearPanel date={_calendarDate} Styles={Styles}/>
+                    <Table variant='unstyled'>
                         <DayPickerHeader/>
                         <DatePickerBody
+                            Styles={Styles}
                             date={_date}
                             dateType={dateType}
                             calendarDate={_calendarDate}
@@ -156,7 +155,7 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
                                 _setDate(formattedDate)
                             }}/>
                     </Table>
-                    <Box onClick={onTodayClickHandler}>
+                    <Box p={2} textAlign="center" onClick={onTodayClickHandler}>
                         Today
                     </Box>
                 </Box>
@@ -169,13 +168,12 @@ export const NepaliDatePicker = ({date, calendarDate, dateType}: NepaliDatePicke
 
 
 const DayPickerHeader = () => {
-
     return (
         <Thead>
             <Tr>
                 {fromCalendarEngine.weeks["en"].map(
                     (weekDay: string, index: number) => (
-                        <Td key={index}>{weekDay}</Td>
+                        <Td p={2} key={index}>{weekDay}</Td>
                     ),
                 )}
             </Tr>
@@ -188,9 +186,10 @@ interface DatePickerBodyProps {
     calendarDate: fromCalendarEngine.type_calendar_mode,
     dateType: string,
     onSelectDate: any,
+    Styles:any
 }
 
-const DatePickerBody = ({date, calendarDate, dateType, onSelectDate}: DatePickerBodyProps) => {
+const DatePickerBody = ({date, calendarDate, dateType, onSelectDate, Styles}: DatePickerBodyProps) => {
     const normalized_calendar_date = fromCalendarEngine.ENGLISH_DATE.get_normalized_date(calendarDate, dateType);
     const normalized_date = fromCalendarEngine.ENGLISH_DATE.get_normalized_date(date, dateType);
 
@@ -219,14 +218,17 @@ const DatePickerBody = ({date, calendarDate, dateType, onSelectDate}: DatePicker
                             normalized_date,
                         );
 
+                        const sx = {
+                            p:2,
+                            ...(dayInfo.isSelected && {...Styles.selected}),
+                            ...(dayInfo.isToday && {...Styles.today}),
+                            ...(dayInfo.isCurrentMonth ? {...Styles.current} : {...Styles.disabled}),
+                        }
                         return (
                             <Td
                                 key={weekDayNum}
-                                className={`month-day 
-                                    ${dayInfo.isCurrentMonth ? 'current' : 'disabled'} 
-                                    ${dayInfo.isToday ? 'today' : ''}
-                                    ${dayInfo.isSelected ? 'selected' : ''}
-                                `}
+                                sx={sx}
+
                                 onClick={() => handleDaySelection(dayInfo)}
                             >
                                 <Flex gap={1} alignItems={'end'}>
@@ -264,8 +266,7 @@ export const CalendarController = ({
                                    }: CalendarControllerProps) => {
 
     return (
-        <Flex justifyContent='space-between'>
-
+        <Flex justifyContent='space-between' p={2}>
             <Flex gap='5px'>
                 <Button size='xs' variant='link' onClick={onPreviousYear}>
                     <AiOutlineDoubleLeft/>
@@ -332,7 +333,7 @@ const MonthPicker = ({calendar_date, onSelect,}: MonthPickerProps) => {
         <Box>
             <Select size='sm' value={_selected} onChange={handleMonthSelection}>
                 {englishMonthList.map(({label, value}) => {
-                    return <option value={value}>{label}</option>
+                    return <option key={value} value={value}>{label}</option>
                 })}
             </Select>
         </Box>
@@ -388,7 +389,7 @@ export const YearPicker = ({calendarDate, onYearSelect}: YearPickerProps) => {
         <Box>
             <Select size='sm' value={_selected} onChange={handleYearSelection}>
                 {engyears.map(({label, value}) => {
-                    return <option value={value}>{label}</option>
+                    return <option key={value} value={value}>{label}</option>
                 })}
             </Select>
         </Box>
@@ -413,9 +414,10 @@ const nepaliMonthMap: any = {
 
 interface MonthYearPanelProps {
     date: string;
+    Styles:any
 }
 
-export const MonthYearPanel = ({date}: MonthYearPanelProps) => {
+export const MonthYearPanel = ({date, Styles}: MonthYearPanelProps) => {
 
     const now = new Date(date)
     const month = now.getMonth();
@@ -424,7 +426,7 @@ export const MonthYearPanel = ({date}: MonthYearPanelProps) => {
     const nepaliyear = englishToNepaliNumber(splited_nepali_date[0]);
 
 
-    return <Box p={3} bg={"#f2f3f5"} borderRadius='5px' textAlign='center' my='5px'>
+    return <Box sx={Styles.month_year_panel}>
         {`${nepaliMonthMap[month]} ${nepaliyear}`}
     </Box>
 };

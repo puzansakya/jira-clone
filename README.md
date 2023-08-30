@@ -33,3 +33,14 @@ yarn storybook:ui
 ```bash
 npx nx serve jira-clone
 ```
+
+```
+-[ ] SETUP SUPERTEST
+-[ ] issue create
+-[ ] update issue position
+-[ ] implement search
+-[ ] implement comment
+-[ ] project setting detail crud
+
+-
+```

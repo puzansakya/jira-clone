@@ -6,19 +6,22 @@ import { Console } from 'console';
 
 /**
  * CHECK IF PASSWORD IS VALID PASSWORD
- * @param password 
- * @param password_digest 
- * @returns 
+ * @param password
+ * @param password_digest
+ * @returns
  */
-export const is_password_valid = async (password: string, password_digest: string) => {
+export const is_password_valid = async (
+  password: string,
+  password_digest: string
+) => {
   console.log(password, password_digest);
   return bcrypt.compare(password, password_digest);
-}
+};
 
 /**
  * ENCODE WITH SECRET
- * @param payload 
- * @returns 
+ * @param payload
+ * @returns
  */
 export const encode_jwt = async (payload: any, secret: string, expiry: any) => {
   return jwt.sign(
@@ -29,27 +32,31 @@ export const encode_jwt = async (payload: any, secret: string, expiry: any) => {
     secret,
     { expiresIn: expiry }
   );
-}
+};
 
 /**
  * HASH STING OR PASSWORD
- * @param password 
- * @returns 
+ * @param password
+ * @returns
  */
 export const hash = async (password: string) => {
   const saltRounds = 10;
 
   return bcrypt.hash(password, saltRounds);
-}
+};
 
 /**
  * IGNORE IF NO HEADER ELSE PROCESS ONWARD
- * @param _req 
- * @param _res 
- * @param _next 
- * @returns 
+ * @param _req
+ * @param _res
+ * @param _next
+ * @returns
  */
-export const check_auth_allowable = async (_req: any, _res: Response, _next: NextFunction) => {
+export const check_auth_allowable = async (
+  _req: any,
+  _res: Response,
+  _next: NextFunction
+) => {
   const header = _req.headers.authorization as string;
 
   if (!header) {
@@ -65,17 +72,21 @@ export const check_auth_allowable = async (_req: any, _res: Response, _next: Nex
     console.log(err);
     return _next();
   }
-}
+};
 
 /**
  * CHECK IF AUTHORIZATION IS PROVIDED
  * PERFORMED BEFORE CHECK_ROLE
- * @param _req 
- * @param _res 
- * @param _next 
- * @returns 
+ * @param _req
+ * @param _res
+ * @param _next
+ * @returns
  */
-export const check_auth = async (_req: any, _res: Response, _next: NextFunction) => {
+export const check_auth = async (
+  _req: any,
+  _res: Response,
+  _next: NextFunction
+) => {
   const header = _req.headers.authorization as string;
 
   if (!header) {
@@ -91,18 +102,23 @@ export const check_auth = async (_req: any, _res: Response, _next: NextFunction)
     console.log(err);
     return _next();
   }
-}
+};
 
 /**
  * CHECK IF ROLE IS PROVIDED
  * PERFORMED AFTER CHECK_AUTH
- * @param permitted_single_role 
- * @param _req 
- * @param _res 
- * @param _next 
- * @returns 
+ * @param permitted_single_role
+ * @param _req
+ * @param _res
+ * @param _next
+ * @returns
  */
-export const check_role = async (permitted_single_role: string, _req: any, _res: Response, _next: NextFunction,) => {
+export const check_role = async (
+  permitted_single_role: string,
+  _req: any,
+  _res: Response,
+  _next: NextFunction
+) => {
   const payload = _req['user'];
   if (permitted_single_role.localeCompare(payload.data.role.role) !== 0) {
     console.log(payload);
@@ -111,44 +127,54 @@ export const check_role = async (permitted_single_role: string, _req: any, _res:
   }
 
   _next();
-}
+};
 
 /**
  * NOT FOUND
- * @param req 
- * @param res 
- * @param next 
+ * @param req
+ * @param res
+ * @param next
  */
 export const not_found = (req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
     error: 'not found',
   });
-}
+};
 
 /**
  * SYSTEMWISE ERROR HANDLER
- * @param error 
- * @param req 
- * @param res 
- * @param next 
+ * @param error
+ * @param req
+ * @param res
+ * @param next
  */
-export const global_system_error_handler = (error: { status: number; message: string }, req: Request, res: Response, next: NextFunction,) => {
+export const global_system_error_handler = (
+  error: { status: number; message: string },
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   res.status(error?.status || 404);
+  console.log(error);
   res.json(
-    // error.message || 
-    'Oops! Something went wrong.');
-}
+    // error.message ||
+    'Oops! Something went wrong.'
+  );
+};
 
 /**
  * LOG RESPONSE BODY
- * @param _req 
- * @param _res 
- * @param _next 
+ * @param _req
+ * @param _res
+ * @param _next
  */
-export const log_response_body = (_req: any, _res: Response, _next: NextFunction) => {
+export const log_response_body = (
+  _req: any,
+  _res: Response,
+  _next: NextFunction
+) => {
   if (_req.body) {
-    console.log(_req.body)
+    console.log(_req.body);
   }
   _next();
-}
-
+};

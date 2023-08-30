@@ -1,25 +1,21 @@
-import { Knex } from "knex";
+import { Knex } from 'knex';
 
 export async function up(knex: Knex): Promise<void> {
-    return knex.schema.createTable("projectUsers", (table: any) => {
-        table.string("id")
-            .primary()
-        // .defaultTo(knex.raw("(UUID())"));
+  return knex.schema.createTable('projectUsers', (table: any) => {
+    table.increments('id').unsigned().primary();
+    // .defaultTo(knex.raw("(UUID())"));
 
+    table.integer('projectId').references('projects.id');
+    table.integer('userId').references('users.id');
 
-        table.string('projectId').references('projects.id');
-        table.string('userId').references('users.id');
+    table.date('createdAt').defaultTo(knex.fn.now());
+    table.date('modifiedAt');
+    table.date('deletedAt');
 
-        table.date("createdAt").defaultTo(knex.fn.now());
-        table.date("modifiedAt");
-        table.date("deletedAt");
-
-        table.boolean("isDeleted").defaultTo(false);
-    });
+    table.boolean('isDeleted').defaultTo(false);
+  });
 }
-
 
 export async function down(knex: Knex): Promise<void> {
-    return knex.schema.dropTable("projectUsers");
+  return knex.schema.dropTable('projectUsers');
 }
-

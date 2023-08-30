@@ -1,26 +1,26 @@
 export const formNameProperties = {
   IssueType: {
     label: 'Issue Type',
-    name: 'IssueType',
+    name: 'typeId',
   },
   ShortSummary: {
     label: 'Short Summary',
-    name: 'ShortSummary',
+    name: 'title',
   },
   Description: {
     label: 'Description',
-    name: 'Description',
+    name: 'descriptionText',
   },
   Reporter: {
     label: 'Reporter',
-    name: 'Reporter',
+    name: 'reporterId',
   },
   Priority: {
     label: 'Priority',
-    name: 'Priority',
+    name: 'priorityId',
   },
   Assignees: {
     label: 'Assignees',
-    name: 'Assignees',
+    name: 'assignees',
   },
 };
