@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CreateIssueModal, PageLoading, SecondarySidebar, Sidebar } from 'ui';
 import { RouteEnum } from '../../routes/routeEnum';
 import * as fromIssueCreatePageStore from '../../store/@issue-create';
-import { ISSUE_STORE } from '../../store/issue';
+import * as fromIssueStore from '../../store/issue';
 import * as fromIssueTypeStore from '../../store/issue-type';
 import * as fromPriorityStore from '../../store/priority';
 import * as fromUserStore from '../../store/user';
@@ -80,8 +80,14 @@ export function AppShell(props: AppShellProps) {
           priorityOptions={priorityOptions}
           onSubmit={(data: Partial<IIssue>) => {
             console.log(JSON.stringify(data, null, 2));
-            const { title, descriptionText, ...rest } = data;
-            dispatch(ISSUE_STORE.create({ ...data, projectId: 6 }));
+            const { assignees, ...rest } = data;
+            dispatch(
+              fromIssueStore.create({
+                ...rest,
+                assignees: [assignees],
+                projectId: 6,
+              })
+            );
             onClose();
           }}
         />
