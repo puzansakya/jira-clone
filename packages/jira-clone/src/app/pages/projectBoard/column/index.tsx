@@ -7,7 +7,7 @@ const Column = (props: any) => {
   const { EACH_COL_WIDTH, GUTTER_WIDTH } = useFlexGridMaker();
 
   return (
-    <Draggable draggableId={props.column.id} index={props.index}>
+    <Draggable draggableId={props.column.id + ''} index={props.index}>
       {(provided: any) => (
         <Box
           w={EACH_COL_WIDTH}

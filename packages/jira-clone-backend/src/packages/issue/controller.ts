@@ -42,6 +42,19 @@ const update = catchErrors(
 );
 
 /**
+ * UPDATE POSITION
+ * @param req
+ * @param res
+ * @returns
+ */
+const update_position = catchErrors(
+  async (req: Request, res: Response): Promise<any> => {
+    const response = await fromUseCases.update_position(req.body);
+    return res.status(200).json(response);
+  }
+);
+
+/**
  * DETAIL
  * @param req
  * @param res
@@ -62,5 +75,6 @@ router.get('/', query);
 router.get('/:id', detail);
 router.post('/', create);
 router.put('/', update);
+router.put('/position', update_position);
 
 export default router;
