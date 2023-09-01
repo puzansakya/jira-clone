@@ -6,6 +6,7 @@ import UserController from './packages/user/controller';
 import StatusController from './packages/issueStatus/controller';
 import PriorityController from './packages/issuePriority/controller';
 import IssueTypeController from './packages/issueType/controller';
+import CommentController from './packages/comment/controller';
 
 const API_NAMESAPCE = '/api/v1';
 
@@ -37,5 +38,9 @@ export const Routes: any = {
   ['issue-type']: {
     path: `${API_NAMESAPCE}/issue-types`,
     controller: IssueTypeController,
+  },
+  comment: {
+    path: `${API_NAMESAPCE}/comments`,
+    controller: CommentController,
   },
 };

@@ -32,6 +32,7 @@ import * as fromIssueStore from '../../store/board';
 import * as fromUserStore from '../../store/user';
 import * as fromPriorityStore from '../../store/priority';
 import * as fromStatusStore from '../../store/status';
+import * as fromCommentStore from '../../store/comment';
 
 import { isEmpty } from 'lodash';
 import { IssueDetail } from 'ui';
@@ -52,6 +53,7 @@ const ProjectBoard = () => {
   const filters = useSelector(fromBoardStore.selectFilters);
   const isFilterClearable = useSelector(fromBoardStore.selectIsFilterClearable);
   const users = useSelector(fromUserStore.selectItems);
+  const comments = useSelector(fromCommentStore.selectItems);
 
   const userDropdownCollections = useSelector(
     fromUserStore.selectDropdownItems
@@ -196,12 +198,34 @@ const ProjectBoard = () => {
 
       <When condition={selectedIssueId !== -1 && isOpen}>
         <IssueDetail
+          priorityOptions={priorityDropodownCollections}
+          fetchInitialData={() => {
+            dispatch(fromCommentStore.fetchComments(selectedIssueId));
+          }}
+          comments={comments}
           isOpen={isOpen}
           onClose={onClose}
           statusOptions={statusDropdownCollections}
           assigneeOptions={userDropdownCollections}
           reporterOptions={userDropdownCollections}
-          priorityOptions={priorityDropodownCollections}
+          createComment={(comment: string) => {
+            dispatch(
+              fromCommentStore.create({
+                body: comment,
+                issueId: selectedIssueId,
+                userId: 4,
+              })
+            );
+          }}
+          updateComment={(comment: any) => {
+            dispatch(
+              fromCommentStore.update({
+                ...comment,
+                issueId: selectedIssueId,
+                userId: 4,
+              })
+            );
+          }}
           onFetchDetail={() => {
             return dispatch(fromIssueStore.fetchIssueDetail(selectedIssueId));
           }}

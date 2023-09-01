@@ -22,6 +22,7 @@ export * from './Components/Pagination/Pagination';
 export * from './Components/Stepper/Stepper';
 export * from './Components/Sidebar/Sidebar';
 export * from './Features/ProjectSetting/ProjectSettingForm';
-export * from "./features/IssueDetail/IssueDetail"
-export * from "./features/create-issue-modal"
+export * from './features/IssueDetail/IssueDetail';
+export * from './features/create-issue-modal';
+export * from './features/comment';
 export * from './Hooks/useFLexGridMaker/useFLexGridMaker';

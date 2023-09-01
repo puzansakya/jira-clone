@@ -8,6 +8,7 @@ import user from './user/slice';
 import status from './status/slice';
 import priority from './priority/slice';
 import issueType from './issue-type/slice';
+import comment from './comment/slice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     status,
     priority,
     issueType,
+    comment,
     // Add the generated reducer as a specific top-level slice
     [pokemonApi.reducerPath]: pokemonApi.reducer,
     [issueApi.reducerPath]: issueApi.reducer,
