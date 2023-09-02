@@ -1,12 +1,13 @@
-import {createBrowserRouter} from 'react-router-dom';
+import {createBrowserRouter, Navigate} from 'react-router-dom';
 
 import {RouteEnum} from './routeEnum';
 
 // COMPONENTS
 import {ErrorPlaceholder} from 'ui';
-import ProjectBoard from '../pages/projectBoard';
-import ProjectSetting from '../pages/projectSetting';
-import AppShell from '../components/appShell';
+import ProjectBoard from '../pages/project-board';
+import ProjectSetting from '../pages/project-setting';
+import IssueDetail from '../pages/issue-detail';
+import AppShell from '../components/app-shell';
 
 export const router = createBrowserRouter([
     {
@@ -15,10 +16,27 @@ export const router = createBrowserRouter([
         errorElement: <ErrorPlaceholder />,
         children: [
             {
+                index: true,
+                element: (
+                    <Navigate
+                        to={RouteEnum.PROJECTBOARD}
+                        replace
+                    />
+                ),
+            },
+            {
                 path: RouteEnum.PROJECTBOARD,
                 element: <ProjectBoard />,
                 errorElement: <ErrorPlaceholder />,
+                children: [
+                    {
+                        path: `${RouteEnum.ISSUE_DETAIL}/:id`,
+                        element: <IssueDetail />,
+                        errorElement: <ErrorPlaceholder />,
+                    },
+                ]
             },
+
             {
                 path: RouteEnum.PROJECTSETTING,
                 element: <ProjectSetting />,
