@@ -8,6 +8,8 @@ export const selectDropdownItems = (state: RootState) => {
         return {
             label: status.name,
             value: status.id,
+            bg: status.bg,
+            color: status.color,
         }
     }) || []
 };

@@ -9,7 +9,6 @@ export default class Project extends BaseModel {
 
     static tableName = 'projects';
 
-
     static relationMappings = {
         projectCategory: {
             relation: Model.BelongsToOneRelation,

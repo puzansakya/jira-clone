@@ -57,21 +57,29 @@ export const seedIssueStatuses = [
     id: uniqueId(),
     name: 'backlog',
     position: 1,
+    bg: "gray.300",
+    color: "gray.900",
   },
   {
     id: uniqueId(),
     name: 'inprogress',
     position: 2,
+    bg: "blue.500",
+    color: "white",
   },
   {
     id: uniqueId(),
-    name: 'selected',
+    name: 'Selected For Development',
     position: 3,
+    bg: "gray.300",
+    color: "gray.900",
   },
   {
     id: uniqueId(),
     name: 'done',
     position: 4,
+    bg: "green.500",
+    color: "white",
   },
 ];
 

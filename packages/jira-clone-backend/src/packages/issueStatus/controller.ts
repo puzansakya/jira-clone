@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import { catchErrors } from '../../utilities/api/catchErrors';
-import * as fromUseCases from './useCases';
+import * as fromUseCases from './use-cases';
 
 const router: Router = Router();
 

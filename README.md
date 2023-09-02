@@ -35,12 +35,16 @@ npx nx serve jira-clone
 ```
 
 ```
--[ ] SETUP SUPERTEST
--[ ] issue create
--[ ] update issue position
+-[x] SETUP SUPERTEST
+-[x] issue create
+-[x] update issue position
 -[ ] implement search
--[ ] implement comment
--[ ] project setting detail crud
+-[x] implement comment
+-[x] project setting detail crud
+-[x] status dropdown color code
+-[ ] font similarity
+-[ ] style optimization
+-[ ] issue detail loader
 
--
+
 ```

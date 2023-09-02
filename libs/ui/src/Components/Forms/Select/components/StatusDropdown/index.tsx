@@ -1,11 +1,10 @@
 import { Box, Button } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import Select, { components, defaultTheme } from 'react-select';
+import Select, { components } from 'react-select';
 import { Dropdown } from '../common/Dropdown';
 import { DropdownIndicator } from '../common/DropdownIndicator';
 
-const { colors } = defaultTheme;
 
 // CUSTOM OPTIONS
 const Option = (props: any) => {

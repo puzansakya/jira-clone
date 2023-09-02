@@ -6,17 +6,8 @@ import FormProvider from '../../Components/Forms/FormProvider/FormProvider';
 import { InputEditor } from '../../Components/Forms/InputEditor/InputEditor';
 import { PxInputText } from '../../Components/Forms/InputText/PxInputText';
 import { Select } from '../../Components/Forms/Select';
-
-const INITIAL_FORM_DATA = {
-  name: '',
-  url: 'https://www.atlassian.com/software/jiffra',
-  description:
-    'Plan, track, and manage your agile and software development projects in Jira. Customize your workflow, collaborate, and release great software.',
-  projectCategory: {
-    label: 'Software',
-    value: 1,
-  },
-};
+import { INITIAL_FORM_DATA } from './default-values';
+import { formNameProperties } from './form-name-properties';
 
 /* eslint-disable-next-line */
 export interface ProjectSettingFormProps {
@@ -72,8 +63,8 @@ export function ProjectSettingForm({
               <>
                 <VStack align="start" spacing={5}>
                   <PxInputText
-                    name="name"
-                    label="Name"
+                    label={formNameProperties.name.label}
+                    name={formNameProperties.name.name}
                     required
                     control={control}
                     errors={errors}
@@ -89,8 +80,8 @@ export function ProjectSettingForm({
                   </PxInputText>
 
                   <PxInputText
-                    name="url"
-                    label="URL"
+                    label={formNameProperties.url.label}
+                    name={formNameProperties.url.name}
                     required
                     control={control}
                     errors={errors}
@@ -106,8 +97,8 @@ export function ProjectSettingForm({
                   </PxInputText>
 
                   <InputEditor
-                    name="description"
-                    label="Description"
+                    label={formNameProperties.description.label}
+                    name={formNameProperties.description.name}
                     required
                     control={control}
                     errors={errors}
@@ -126,8 +117,8 @@ export function ProjectSettingForm({
                   </InputEditor>
 
                   <Select
-                    name="projectCategory"
-                    label="Project Category"
+                    label={formNameProperties.projectCategory.label}
+                    name={formNameProperties.projectCategory.name}
                     options={[]}
                     required
                     control={control}
