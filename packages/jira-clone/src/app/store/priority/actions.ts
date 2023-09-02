@@ -1,4 +1,4 @@
-import * as fromSlice from "../slice";
+import * as fromSlice from "./slice";
 
 export const fetchPriorities: any = () => async (dispatch: any, getState: any) => {
     dispatch(fromSlice.fetchRequest())

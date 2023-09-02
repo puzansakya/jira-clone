@@ -24,5 +24,7 @@ export const PxUncontrollerComponent = (
     name,
     value,
   };
-  return <Input onChange={handleChange} {...inputProps} {...rest} />;
+  return <Input bg={"#f4f5f7"} _hover={{
+    bg:"#ebecf0"
+  }} onChange={handleChange} {...inputProps} {...rest} />;
 };

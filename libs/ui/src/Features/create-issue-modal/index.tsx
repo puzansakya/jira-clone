@@ -22,6 +22,7 @@ import ConnectForm from '../../Components/Forms/ConnectForm/ConnectForm';
 import { InputEditor } from '../../Components/Forms/InputEditor/InputEditor';
 import React from 'react';
 import PxInputText from '../../Components/Forms/InputText/PxInputText';
+import MultiSelect from '../../Components/Forms/InputMultiSelect';
 
 interface CreateIssueModalProps {
   isOpen: boolean;
@@ -59,7 +60,7 @@ export const CreateIssueModal = (props: CreateIssueModalProps) => {
       [formNameProperties.Priority.name]:
         data[formNameProperties.Priority.name].value,
       [formNameProperties.Assignees.name]:
-        data[formNameProperties.Assignees.name].value,
+        data[formNameProperties.Assignees.name].map((assignee:any) => assignee.value),
     };
   };
 
@@ -171,7 +172,7 @@ export const CreateIssueModal = (props: CreateIssueModalProps) => {
                       </Select.FormControl>
                     </Select>
 
-                    <Select
+                    <MultiSelect
                       name={formNameProperties.Assignees.name}
                       label={formNameProperties.Assignees.label}
                       options={reporterOptions}
@@ -179,15 +180,15 @@ export const CreateIssueModal = (props: CreateIssueModalProps) => {
                       control={control}
                       errors={errors}
                     >
-                      <Select.FormControl>
+                      <MultiSelect.FormControl>
                         <Flex gap={2}>
-                          <Select.FormLabel fontSize="sm" />
-                          <Select.HelperText />
+                          <MultiSelect.FormLabel fontSize="sm" />
+                          <MultiSelect.HelperText />
                         </Flex>
-                        <Select.Component />
-                        <Select.ErrorLabel />
-                      </Select.FormControl>
-                    </Select>
+                        <MultiSelect.Component />
+                        <MultiSelect.ErrorLabel />
+                      </MultiSelect.FormControl>
+                    </MultiSelect>
 
                     <Select
                       name={formNameProperties.Priority.name}
@@ -202,7 +203,7 @@ export const CreateIssueModal = (props: CreateIssueModalProps) => {
                           <Select.FormLabel fontSize="sm" />
                           <Select.HelperText />
                         </Flex>
-                        <Select.Component />
+                        <Select.PriorityComponent />
                         <Select.ErrorLabel />
                         <Text fontSize="sm">
                           Priority in relation to other issues.

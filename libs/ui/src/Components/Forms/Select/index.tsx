@@ -1,5 +1,6 @@
 import {
   PxComponent,
+  PxIssueTypeComponent,
   PxPriorityComponent,
   PxReporterComponent,
   PxStatusComponent,
@@ -25,5 +26,6 @@ Select.Component = PxComponent;
 Select.StatusComponent = PxStatusComponent;
 Select.PriorityComponent = PxPriorityComponent;
 Select.ReporterComponent = PxReporterComponent;
+Select.IssueTypeComponent = PxIssueTypeComponent;
 
 export default Select;

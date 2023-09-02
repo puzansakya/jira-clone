@@ -5,7 +5,6 @@ export const ColumnWrapper = (props: any) => {
     const blocks                      = column.blockIds.map((blockId: any) => blockMap[blockId]);
     return (
         <Column
-            handleOpenIssueDetailModal = {props.handleOpenIssueDetailModal}
             column                     = {column}
             blocks                     = {blocks}
             index                      = {index}

@@ -56,7 +56,7 @@ export const PxUncontrolledComponent = (
   return (
     <>
       <When condition={!editMode}>
-        <Box>
+        <Box mt={"-20px"}>
           <span
             className="ql-editor"
             dangerouslySetInnerHTML={{ __html: localValue }}

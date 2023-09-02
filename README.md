@@ -42,9 +42,10 @@ npx nx serve jira-clone
 -[x] implement comment
 -[x] project setting detail crud
 -[x] status dropdown color code
+-[x] issue detail loader
 -[ ] font similarity
 -[ ] style optimization
--[ ] issue detail loader
+-[x] update project logo
 
 
 ```

@@ -76,17 +76,18 @@ const Story: Meta<typeof IssueDetail> = {
           comments         = {[]}
           isOpen           = {true}
           statusOptions    = {STATUS_OPTIONS}
+          typeOptions      = {STATUS_OPTIONS}
           assigneeOptions  = {ASSIGNEE_OPTIONS}
           reporterOptions  = {REPORTER_OPTIONS}
           priorityOptions  = {PRIORITY_OPTIONS}
           createComment    = {() => null}
-          fetchInitialData = {() => null}
           updateComment    = {() => null}
           onClose          = {() => null}
+          fetchInitialData = {() => null}
           onFetchDetail    = {() => {
             const INITIAL_FORM_DATA = {
               name: 'Each issue can be assigned priority from lowest to highest.',
-                // description: mockHtmlData,
+                  // description: mockHtmlData,
               status      : STATUS_OPTIONS[0],
               assignee    : [ASSIGNEE_OPTIONS[2], ASSIGNEE_OPTIONS[1]],
               reporter    : REPORTER_OPTIONS[2],

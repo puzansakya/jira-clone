@@ -5,6 +5,7 @@ export async function up(knex: Knex): Promise<void> {
     table.increments('id').unsigned().primary();
 
     table.string('name').notNull();
+    table.string('icon').notNull();
 
     table.date('createdAt').defaultTo(knex.fn.now());
     table.date('modifiedAt');

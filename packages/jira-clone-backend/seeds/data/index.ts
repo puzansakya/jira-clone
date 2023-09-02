@@ -87,22 +87,27 @@ export const seedIssuePriorities = [
   {
     id: uniqueId(),
     name: 'Highest',
+    icon: 'up',
   },
   {
     id: uniqueId(),
     name: 'High',
+    icon: 'up',
   },
   {
     id: uniqueId(),
     name: 'Medium',
+    icon: 'up',
   },
   {
     id: uniqueId(),
     name: 'Low',
+    icon: 'down',
   },
   {
     id: uniqueId(),
     name: 'Lowest',
+    icon: 'down',
   },
 ];
 

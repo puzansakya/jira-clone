@@ -1,4 +1,5 @@
 import {
+  PxIssueTypeRhfComponent,
   PxPriorityRhfComponent,
   PxReporterRhfComponent,
   PxRhfComponent,
@@ -44,6 +45,20 @@ export const PxPriorityComponent = (props: {
   }
   return <PxPriorityUncontrollerComponent {...props} />;
 };
+
+
+export const PxIssueTypeComponent = (props: {
+  onChangeRHF?: any;
+  value?: any;
+}) => {
+  const { control } = usePxSelect();
+
+  if (control) {
+    return <PxIssueTypeRhfComponent {...props} />;
+  }
+  return <PxIssueTypeComponent {...props} />;
+};
+
 
 export const PxReporterComponent = (props: {
   onChangeRHF?: any;

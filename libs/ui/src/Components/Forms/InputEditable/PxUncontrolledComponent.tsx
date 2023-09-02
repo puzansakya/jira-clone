@@ -19,6 +19,7 @@ export const PxUncontrollerComponent = (
 
   const newVal = value || rhfValue;
 
+  console.log(newVal)
   const [localValue, setLocalValue] = React.useState<string>('');
 
   // FUNCTIONS

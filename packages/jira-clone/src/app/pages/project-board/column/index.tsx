@@ -40,7 +40,7 @@ const Column = (props: any) => {
             </Text>
             <Droppable
                 //
-              droppableId = {props.column.id}
+              droppableId = {props.column.id + ""}
               type        = "task"
             >
               {(provided: any, snapshot: any) => (
@@ -53,9 +53,6 @@ const Column = (props: any) => {
                   {...provided.droppableProps}
                 >
                   <CardWrapper
-                    handleOpenIssueDetailModal={
-                      props.handleOpenIssueDetailModal
-                    }
                     blocks = {props.blocks}
                   />
                   {provided.placeholder}

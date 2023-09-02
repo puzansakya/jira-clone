@@ -94,7 +94,7 @@ export function AppShell(props: AppShellProps) {
             dispatch(
               fromIssueStore.create({
                 ...rest,
-                assignees: [assignees],
+                assignees: assignees,
                 projectId: 6,
               })
             );

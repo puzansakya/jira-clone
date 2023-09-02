@@ -7,6 +7,7 @@ export const selectDropdownItems = (state: RootState) => {
         return {
             label: priority.name,
             value: priority.id,
+            icon: priority.icon,
         }
     })
 };

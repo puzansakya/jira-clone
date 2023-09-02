@@ -6,7 +6,7 @@ import {RouteEnum} from './routeEnum';
 import {ErrorPlaceholder} from 'ui';
 import ProjectBoard from '../pages/project-board';
 import ProjectSetting from '../pages/project-setting';
-import IssueDetail from '../pages/issue-detail';
+import IssueDetailPage from '../pages/issue-detail';
 import AppShell from '../components/app-shell';
 
 export const router = createBrowserRouter([
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
                 children: [
                     {
                         path: `${RouteEnum.ISSUE_DETAIL}/:id`,
-                        element: <IssueDetail />,
+                        element: <IssueDetailPage />,
                         errorElement: <ErrorPlaceholder />,
                     },
                 ]

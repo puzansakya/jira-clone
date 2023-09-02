@@ -24,17 +24,19 @@ import Watcher from './watcher';
 import InputEditable from '../../Components/Forms/InputEditable';
 import TimeTracker from '../../Components/Forms/TimeTracker';
 import Comment from '../comment';
+import { IssueDetailLoader } from './issue-detail-loader';
 
 interface IssueDetailProps {
   isOpen: boolean;
-  onClose: any;
   statusOptions: any[];
   assigneeOptions: any[];
   reporterOptions: any[];
   priorityOptions: any[];
+  typeOptions: any[];
+  comments: any[];
   onSubmit: any;
   onFetchDetail: any;
-  comments: any[];
+  onClose: any;
   fetchInitialData: () => void;
   createComment: (comment: string) => void;
   updateComment: (comment: any) => void;
@@ -49,6 +51,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
     statusOptions,
     assigneeOptions,
     priorityOptions,
+    typeOptions,
     comments,
     reporterOptions,
     fetchInitialData,
@@ -108,7 +111,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
         <ModalOverlay />
         <ModalContent>
           <ModalBody py={4}>
-            <Text>Loading</Text>
+            <IssueDetailLoader />
           </ModalBody>
         </ModalContent>
       </Modal>
@@ -122,7 +125,6 @@ export const IssueDetail = (props: IssueDetailProps) => {
         <ModalBody py={4}>
           {/* RENDER HEADER */}
           <Flex w="full" justifyContent="space-between">
-            {/*<pre>{JSON.stringify(_defaultValues, null, 2)}</pre>*/}
             <Button
               bg="white"
               size="sm"
@@ -183,7 +185,6 @@ export const IssueDetail = (props: IssueDetailProps) => {
               return;
             }}
             defaultValues={_defaultValues}
-            showDevTool
           >
             <ConnectForm>
               {(connectProps: any) => {
@@ -229,10 +230,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                         errors={errors}
                       >
                         <InputEditorV2.FormControl>
-                          <Flex gap={2}>
-                            <InputEditorV2.FormLabel />
-                            <InputEditorV2.HelperText />
-                          </Flex>
+                          <InputEditorV2.FormLabel />
                           <InputEditorV2.Component />
                           <InputEditorV2.ErrorLabel />
                         </InputEditorV2.FormControl>
@@ -310,6 +308,23 @@ export const IssueDetail = (props: IssueDetailProps) => {
                               <Select.HelperText />
                             </Flex>
                             <Select.PriorityComponent />
+                            <Select.ErrorLabel />
+                          </Select.FormControl>
+                        </Select>
+                        
+                        <Select
+                          name="Type"
+                          label="TYPE"
+                          {...inputProps}
+                          options={typeOptions}
+                          required
+                        >
+                          <Select.FormControl>
+                            <Flex gap={2}>
+                              <Select.FormLabel />
+                              <Select.HelperText />
+                            </Flex>
+                            <Select.IssueTypeComponent />
                             <Select.ErrorLabel />
                           </Select.FormControl>
                         </Select>

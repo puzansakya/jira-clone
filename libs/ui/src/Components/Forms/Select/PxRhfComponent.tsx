@@ -4,6 +4,7 @@ import * as fromHelpers from '../../../Helpers';
 import * as fromFormHelpers from '../@form-helper';
 import { usePxSelect } from './usePxSelect';
 import {
+  PxIssueTypeUncontrollerComponent,
   PxPriorityUncontrollerComponent,
   PxReporterUncontrollerComponent,
   PxStatusUncontrollerComponent,
@@ -87,6 +88,35 @@ export const PxPriorityRhfComponent = (
       render={({ field: { onChange, value } }) => {
         return (
           <PxPriorityUncontrollerComponent
+            value={value}
+            onChangeRHF={onChange}
+            {...props}
+          />
+        );
+      }}
+    />
+  );
+};
+
+export const PxIssueTypeRhfComponent = (
+  props: any //PxControlledComponentProps
+) => {
+  const { control, rule, name, required } = usePxSelect();
+
+  let _rule: any = fromFormHelpers.getDefaultRules({ required });
+
+  if (!isEmpty(rule)) {
+    _rule = fromHelpers.deepMerge(_rule, rule);
+  }
+
+  return (
+    <Controller
+      control={control}
+      name={name}
+      rules={_rule}
+      render={({ field: { onChange, value } }) => {
+        return (
+          <PxIssueTypeUncontrollerComponent
             value={value}
             onChangeRHF={onChange}
             {...props}
