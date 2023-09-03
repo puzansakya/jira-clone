@@ -15,7 +15,7 @@ interface TypeIconProps {
   type: string;
 }
 
-const TypeIcon = (props: TypeIconProps) => {
+export const TypeIcon = (props: TypeIconProps) => {
   const { type } = props;
   return (
     <Switch>

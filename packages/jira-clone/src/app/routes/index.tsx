@@ -7,6 +7,7 @@ import {ErrorPlaceholder} from 'ui';
 import ProjectBoard from '../pages/project-board';
 import ProjectSetting from '../pages/project-setting';
 import IssueDetailPage from '../pages/issue-detail';
+import IssueSearchPage from '../pages/issue-search';
 import AppShell from '../components/app-shell';
 
 export const router = createBrowserRouter([
@@ -32,6 +33,11 @@ export const router = createBrowserRouter([
                     {
                         path: `${RouteEnum.ISSUE_DETAIL}/:id`,
                         element: <IssueDetailPage />,
+                        errorElement: <ErrorPlaceholder />,
+                    },
+                    {
+                        path: `${RouteEnum.ISSUE_SEARCH}`,
+                        element: <IssueSearchPage />,
                         errorElement: <ErrorPlaceholder />,
                     },
                 ]

@@ -1,9 +1,7 @@
-import { Box, Flex, Text, transition, VStack } from '@chakra-ui/react';
 import { AddIcon, QuestionOutlineIcon, SearchIcon } from '@chakra-ui/icons';
+import { Box, Flex, Link, VStack } from '@chakra-ui/react';
 
-import * as React from 'react';
-
-export const Sidebar = ({ handleOpenCreateIssueModal }: any) => {
+export const Sidebar = ({ handleOpenCreateIssueModal, onOpenIssueSearchModal }: any) => {
   return (
     <Flex
       role="group"
@@ -28,7 +26,6 @@ export const Sidebar = ({ handleOpenCreateIssueModal }: any) => {
     >
       <VStack pb={12} pt={5} alignItems="start" spacing={5}>
         <Box bg="gray.100" h={6} w={6} borderRadius="full"></Box>
-      
 
         {/* <Flex gap={5}> */}
         <AddIcon
@@ -55,7 +52,12 @@ export const Sidebar = ({ handleOpenCreateIssueModal }: any) => {
             Create Issue
           </Text> */}
         {/* </Flex> */}
-        <SearchIcon h={5} w={5} color="gray.100" />
+        <SearchIcon
+          onClick={onOpenIssueSearchModal}
+          h={5}
+          w={5}
+          color="gray.100"
+        />
       </VStack>
       <Flex py={5} direction="column" alignItems="center">
         <QuestionOutlineIcon h={5} w={5} color="gray.100" />

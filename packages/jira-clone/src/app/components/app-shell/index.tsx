@@ -1,52 +1,53 @@
-  // LIBS
-import React                        from 'react';
-import { Outlet }                   from 'react-router-dom';
+// LIBS
+import React from 'react';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { When }                     from 'react-if';
+import { When } from 'react-if';
 import { Box, Flex, useDisclosure } from '@chakra-ui/react';
 
-  // STORE
-  // COMPONENTS
+// STORE
+// COMPONENTS
 import { IIssue } from '../../ts/models/issue';
-  // UI
+// UI
 
 import {
-    //
+  //
   CreateIssueModal,
   PageLoading,
   SecondarySidebar,
   Sidebar,
 } from 'ui';
 
-  // CONSTANTS
+// CONSTANTS
 import { RouteEnum } from '../../routes/routeEnum';
 
-  // STORE
-import * as fromIssueCreatePageStore  from '../../store/@issue-create';
-import * as fromIssueStore            from '../../store/issue';
-import * as fromIssueTypeStore        from '../../store/issue-type';
-import * as fromPriorityStore         from '../../store/priority';
-import * as fromUserStore             from '../../store/user';
+// STORE
+import * as fromIssueCreatePageStore from '../../store/@issue-create';
+import * as fromIssueStore from '../../store/issue';
+import * as fromIssueTypeStore from '../../store/issue-type';
+import * as fromPriorityStore from '../../store/priority';
+import * as fromUserStore from '../../store/user';
 
-  /* eslint-disable-next-line */
+/* eslint-disable-next-line */
 export interface AppShellProps {}
 
 export function AppShell(props: AppShellProps) {
-    // VARIABLES
+  // VARIABLES
 
-    // HOOKS
-  const dispatch                    = useDispatch();
+  // HOOKS
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-    // LOCAL STATE
+  // LOCAL STATE
   const [loader, setLoader] = React.useState(true);
 
-    // SELECTORS
-  const priorityOptions  = useSelector(fromPriorityStore.selectDropdownItems);
+  // SELECTORS
+  const priorityOptions = useSelector(fromPriorityStore.selectDropdownItems);
   const issueTypeOptions = useSelector(fromIssueTypeStore.selectDropdownItems);
-  const userOptions      = useSelector(fromUserStore.selectDropdownItems);
+  const userOptions = useSelector(fromUserStore.selectDropdownItems);
 
-    // FUNCTIONS
+  // FUNCTIONS
   React.useEffect(() => {
     setTimeout(() => {
       setLoader(false);
@@ -58,11 +59,17 @@ export function AppShell(props: AppShellProps) {
   }
 
   const handleOpenCreateIssueModal = () => onOpen();
+  const handleOpenIssueSearchModal = () => {
+    navigate(`${RouteEnum.PROJECTBOARD}/${RouteEnum.ISSUE_SEARCH}`);
+  };
 
   return (
     <Flex>
-      <Sidebar handleOpenCreateIssueModal = {handleOpenCreateIssueModal} />
-      <Flex    pl                         = {14} w = "full">
+      <Sidebar
+        handleOpenCreateIssueModal={handleOpenCreateIssueModal}
+        onOpenIssueSearchModal={handleOpenIssueSearchModal}
+      />
+      <Flex pl={14} w="full">
         <SecondarySidebar
           items={[
             'Releases',
@@ -71,24 +78,24 @@ export function AppShell(props: AppShellProps) {
             'Reports',
             'Components',
           ]}
-          routeEnum = {RouteEnum}
+          routeEnum={RouteEnum}
         />
-        <Box flex = {1}>
+        <Box flex={1}>
           <Outlet />
         </Box>
       </Flex>
 
-      <When condition = {isOpen}>
+      <When condition={isOpen}>
         <CreateIssueModal
           fetchInitialData={() => {
             dispatch(fromIssueCreatePageStore.fetchPageData());
           }}
-          isOpen           = {isOpen}
-          onClose          = {onClose}
-          issueTypeOptions = {issueTypeOptions}
-          reporterOptions  = {userOptions}
-          priorityOptions  = {priorityOptions}
-          onSubmit         = {(data: Partial<IIssue>) => {
+          isOpen={isOpen}
+          onClose={onClose}
+          issueTypeOptions={issueTypeOptions}
+          reporterOptions={userOptions}
+          priorityOptions={priorityOptions}
+          onSubmit={(data: Partial<IIssue>) => {
             console.log(JSON.stringify(data, null, 2));
             const { assignees, ...rest } = data;
             dispatch(

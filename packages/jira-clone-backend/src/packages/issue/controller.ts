@@ -17,6 +17,18 @@ const query = catchErrors(async (req: Request, res: Response): Promise<any> => {
 });
 
 /**
+ * QUERY SEARCH
+ * @param req
+ * @param res
+ * @returns
+ */
+const query_search = catchErrors(async (req: Request, res: Response): Promise<any> => {
+  const response = await fromUseCases.query_search(req.query);
+
+  return res.status(200).json(response);
+});
+
+/**
  * CREATE
  * @param req
  * @param res
@@ -72,6 +84,7 @@ const detail = catchErrors(
 );
 
 router.get('/', query);
+router.get('/search', query_search);
 router.get('/:id', detail);
 router.post('/', create);
 router.put('/', update);
