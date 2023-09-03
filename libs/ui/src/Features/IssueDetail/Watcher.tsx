@@ -7,6 +7,7 @@ const transformToSubmitValues = (data: any) => {
     assignees: data.assignees.map((x: any) => x.value) ?? [],
     reporterId: data.reporter.value,
     priorityId: data.priority.value,
+    typeId: data.type.value,
   };
 };
 
