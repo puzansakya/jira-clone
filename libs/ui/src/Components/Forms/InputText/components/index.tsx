@@ -1,5 +1,6 @@
 import debounce from "lodash/debounce";
 import React, { useState } from "react";
+import {Input} from "@chakra-ui/react";
 
 const WAIT = 500;
 
@@ -21,7 +22,7 @@ export const DebouncedInput = (props: DebouncedinputProps) => {
   }, [_value]);
   const debounceCallback = React.useCallback(
     debounce((newValue: any) => {
-      _onChange?.({ name, value:newValue });
+      _onChange?.(newValue);
     }, WAIT),
     []
   );
@@ -33,8 +34,7 @@ export const DebouncedInput = (props: DebouncedinputProps) => {
   };
 
   return (
-    <input
-      id={name}
+    <Input
       onChange={handleChange}
       value={localValue}
       {...rest}

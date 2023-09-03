@@ -1,4 +1,4 @@
-export * from './Components/Forms/debouncedInput';
+export * from './Components/Forms/debouncedInput/components';
 export * from './Components/SecondarySidebar/SecondarySidebar';
 export * from './Components/ErrorPlaceholder/ErrorPlaceholder';
 export * from './Components/Sidebar-sample/SidebarSample';

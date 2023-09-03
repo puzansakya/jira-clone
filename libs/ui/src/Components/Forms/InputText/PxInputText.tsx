@@ -1,6 +1,6 @@
 import { Default } from './Default';
 import { PxInputEditableProps } from './interface';
-import { PxComponent } from './PxComponent';
+import {PxComponent, PxDebouncedComponent} from './PxComponent';
 import { PxFormControl } from './PxFormControl';
 import { PxFormErrorLabel } from './PxFormErrorLabel';
 import { PxFormHelperText } from './PxFormHelperText';
@@ -26,5 +26,6 @@ PxInputText.HelperText = PxFormHelperText;
 PxInputText.ErrorLabel = PxFormErrorLabel;
 PxInputText.FormControl = PxFormControl;
 PxInputText.Component = PxComponent;
+PxInputText.DebouncedComponent = PxDebouncedComponent;
 
 export default PxInputText;

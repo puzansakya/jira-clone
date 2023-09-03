@@ -352,7 +352,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                           <TimeTracker.Default
                             label          = {formNameProperties.timeSpent.label}
                             name           = {formNameProperties.timeSpent.name}
-                            estimateName   = "timeEstimate"                        // this could be name to estimate field
+                            estimateName   = {formNameProperties.estimate.name}                        // this could be name to estimate field
                             getValues      = {getValues}
                             watch          = {watch}
                             reset          = {reset}
