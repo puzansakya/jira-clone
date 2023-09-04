@@ -24,10 +24,10 @@ const Column = (props: any) => {
             w            = "full"
             direction    = "column"
             border       = "1px"
-            borderColor  = "gray.300"
+            borderColor  = "issue.column.borderColor"
             borderRadius = "md"
             minWidth     = "220px"
-            bg           = "gray.100"
+            bg           = "issue.column.background"
             minHeight    = {96}
           >
             <Text

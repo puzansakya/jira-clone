@@ -172,9 +172,9 @@ export const SecondarySidebar = ({
   return (
     <VStack
       borderRight="1px"
-      borderColor="gray.200"
+      borderColor="secondarySidebar.borderColor"
       left={14}
-      bg="gray.50"
+      bg="secondarySidebar.background"
       px={4}
       py={6}
       w={56}
@@ -182,6 +182,7 @@ export const SecondarySidebar = ({
       flexShrink={0}
       spacing={6}
       alignItems="Start"
+      color={"secondarySidebar.item.color"}
     >
       <HStack alignItems="center" spacing={2}>
         <ObsidianLogo />
@@ -197,10 +198,10 @@ export const SecondarySidebar = ({
             spacing={3}
             p={3}
             borderRadius="sm"
-            _hover={{ bg: 'gray.200' }}
+            _hover={{ bg: 'secondarySidebar.item.hoverBackground' }}
           >
-            <CalendarIcon color="gray.600" h={4} w={4} />
-            <Text color="gray.900" fontSize="sm">
+            <CalendarIcon color="secondarySidebar.item.iconColor" h={4} w={4} />
+            <Text color="secondarySidebar.item.color" fontSize="sm">
               Kanban Board
             </Text>
           </HStack>
@@ -211,17 +212,17 @@ export const SecondarySidebar = ({
             spacing={3}
             p={3}
             borderRadius="sm"
-            _hover={{ bg: 'gray.200' }}
+            _hover={{ bg: 'secondarySidebar.item.hoverBackground' }}
           >
-            <SettingsIcon color="gray.600" h={4} w={4} />
-            <Text color="gray.900" fontSize="sm">
+            <SettingsIcon color="secondarySidebar.item.iconColor" h={4} w={4} />
+            <Text color="secondarySidebar.item.color" fontSize="sm">
               Project Settings
             </Text>
           </HStack>
         </Link>
       </Box>
       <Divider borderColor="gray.400" />
-      <Box w="full">
+      <Box w="full" color={"secondarySidebar.item.color"}>
         {lowerMenus.map((menu, idx: number) => {
           return (
             <HStack
@@ -231,7 +232,7 @@ export const SecondarySidebar = ({
               px={3}
               py={2}
               borderRadius="sm"
-              _hover={{ bg: 'gray.200' }}
+              _hover={{ bg: 'secondarySidebar.item.hoverBackground' }}
             >
               <Box
                 h={5}

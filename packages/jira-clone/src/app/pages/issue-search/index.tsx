@@ -28,7 +28,7 @@ export const IssueSearchPage = () => {
                 <DrawerHeader>Search Issue</DrawerHeader>
 
                 <DrawerBody>
-                    <Flex direction={"column"} gap={4}>
+                    <Flex direction={"column"} gap={10}>
 
                         <InputText
                             required={false}
@@ -46,7 +46,16 @@ export const IssueSearchPage = () => {
                             }}
                         >
                             <InputText.FormControl>
-                                <InputText.DebouncedComponent/>
+                                <InputText.DebouncedComponent
+                                    borderRadius={"none"}
+                                    bg={"transparent"}
+                                    _focus={{
+                                        boxShadow: "none",
+                                    }}
+                                    placeholder="Search issue"
+                                    border={"none"}
+                                    borderBottom={"1px solid blue"}
+                                />
                             </InputText.FormControl>
                         </InputText>
 

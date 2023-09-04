@@ -41,6 +41,7 @@ export const PxDebouncedUncontrollerComponent = (
     name,
     value, // this is user defined value for uncontrolled component
     onChange: _onChange,
+      ...contextRest
   } = pzContext;
 
   const handleChange = (_Debouncedvalue:any) => {
@@ -51,8 +52,10 @@ export const PxDebouncedUncontrollerComponent = (
   const inputProps = {
     name,
     value,
+    ...contextRest,
+    ...rest
   };
   return <DebouncedInput bg={"#f4f5f7"} _hover={{
     bg:"#ebecf0"
-  }} onChange={handleChange} {...inputProps} {...rest} />;
+  }} onChange={handleChange} {...inputProps}  />;
 };

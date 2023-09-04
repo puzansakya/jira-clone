@@ -2,7 +2,7 @@ import { createMachine } from 'xstate';
 
 export const machine = createMachine<any>(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QDMwBcDGALABAS1lgFcwcBbAQ2zwDswA6VTLWqAYggHs77aA3TgGsGTbAH0CxMAG0ADAF1EoAA6dYeNHm5KQAD0QAmWQA56BgMwBWWQEYTAFgBsR+wHYANCACeiYzfr2xrLBBo6u5vYGlpEAvjGeoriSJORULDyJrGxgAE45nDn0ygA2FGjIBWSM6OLJMgo6quqa2kh6iI6OlvSWrsGONvayzlaePghG-n3BNkZRblEGcQk1SYQplNQ8dQBiq5BsGMVgFDk7eMVouXKKbU0aWjQ6+hMmZla2Ds6ybmOGrv4TDN7INBo5bMsQIl8OtSJt0gxdvsIGxYCcctgbo01A9WqAXkZTBZrHZjE4XB5vIgbK57PRXEFgsYAJyyZmuPrGOLxEA0TgQOA6aF1VJbMDY5qPZ6IAC0jj+CDlkOFsNFCOqzFYEtxTzaL3MxlcAUZ5nMBgMrkc9mZNgVNKNNmZ1h+1nslj8lkcytWMKkatoiNhe2YkG1LV1+MQkTtNimvWsprCFhsBu9zF9GzSAfouXyOVDdxx4elCDJ5mN-QMrIsNuZCqMsnojjJzJZzLdA2ZjnM3JiQA */
+    /** @xstate-layout N4IgpgJg5mDOIC5QDMwBcDGALABAS1lgFcwcBbAQ2zwDswA6VTLWqAYggHs77aA3TgGsGTbAH0CxMAG0ADAF1EoAA6dYeNHm5KQAD0QAmAMwA2egHYArJdMGAHAE4Txk3csAaEAE9EAWgAsAIz0llYmgQbmDo6WJuYAvvGeoriSJORULDwprGxgAE75nPn0ygA2FGjIxWSM6OJpMgo6quqa2kh6iOayRvR2-j0G-rH2Dk6ePgi+cfRG-v4mDgYOlg5GBrJ2BonJ9amE6ZTUPI0AYvuQbBhlYBT5Z3hlaAVyip2tGlo0OvoI-rJ6IFArIliDzLYTAtJogjLJAYEekZrEsgnZZA5diAUvhDqRjlkGOdLhA2LA7vlsG8Wmovh1QH9AqY5nZWeY7D0TJZEeZzDCEBEzK5ERteeYQQ5zDssTROBA4DocY0MicwDS2t9fn5zP1HHDHAYTEYIdYHPzfIFLP5+sMelteqzJUYsUq8SrCXVmKx1XSfp0-v4jMF5qZLI5JbE7Mj+ci7PRA4EAcMnGNpXtmLipO7aES8RdmJAfe0-QzuoDLJtkZtLPCNoETObgfQVnZgQYQdyaxCTC79pmjpkc-QCkV8oWPrTi1qEByDPR4bIgv5VsNhoF+bz6M51uYFhDjFZpYkgA */
     context: {
       search: '',
       issueList: null,
@@ -32,14 +32,14 @@ export const machine = createMachine<any>(
       },
       issueFetched: {
         on: {
-          clearFilter: {
+          search: {
             target: 'fetching',
             actions: {
               type: 'updateSearchText',
               params: {},
             },
           },
-          search: {
+          clearFilter: {
             target: 'fetching',
             actions: {
               type: 'updateSearchText',
