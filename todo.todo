@@ -1,0 +1,23 @@
+Projects:
+  jira clone:
+    ☐ Style optimization
+    ☐ font optimization
+    ☐ style extraction
+    ✔ type mapping @done(23-09-05 20:36)
+        ✔ comment @done(23-09-05 19:15)
+        ✔ issue @done(23-09-05 19:23)
+        ✔ issue type @done(23-09-05 20:24)
+        ✔ dropdown option @done(23-09-05 19:53)
+        ✔ priorities @done(23-09-05 20:26)
+        ✔ user @done(23-09-05 20:34)
+        ✔ status @done(23-09-05 20:28)
+        ✔ project @done(23-09-05 20:32)
+        ✔ project category @done(23-09-05 20:29)
+    ☐ implement types
+    ☐ store code optimization
+    ☐ postgress implementation
+    ☐ auth implementation
+    ☐ cypress testing
+    ☐ deploy
+
+  
