@@ -1,11 +1,10 @@
 import { RootState } from '..';
 import * as fromInterface from '../../ts';
-import { IComment } from '../../ts/models/comment';
 import { ICommentState } from './slice';
 
 export const selectSlice = (state: RootState): ICommentState => state.comment;
 
-export const selectItems = (state: RootState): IComment[] =>
+export const selectItems = (state: RootState): fromInterface.IComment[] =>
   selectSlice(state).items;
 
 export const selectStatus = (

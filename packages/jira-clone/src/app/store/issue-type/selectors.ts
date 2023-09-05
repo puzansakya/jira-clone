@@ -1,18 +1,18 @@
 import { RootState } from '..';
 import * as fromInterface from '../../ts';
+import { IDropdownCollection, IIssueTypeCollection } from '../../ts';
 import { IIssueTypeState } from './slice';
 
 export const selectSlice = (state: RootState): IIssueTypeState =>
   state.issueType;
 
-export const selectItems = (state: RootState): any[] =>
+export const selectItems = (state: RootState): IIssueTypeCollection =>
   selectSlice(state).items;
 
-export const selectDropdownItems = (state: RootState) =>
+export const selectDropdownItems = (state: RootState): IDropdownCollection =>
   selectSlice(state).items.map((item) => ({
     label: `${item.name}`,
     value: item.id,
-    src: item.avatar,
   }));
 
 export const selectStatus = (

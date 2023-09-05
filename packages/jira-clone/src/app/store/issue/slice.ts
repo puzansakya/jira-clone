@@ -2,8 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 import * as fromInterface from '../../ts';
 
 export interface IssueState {
-  boardData: fromInterface.InitialData<fromInterface.Task>;
-  filters: {
+  boardData: fromInterface.InitialData<fromInterface.IIssue>;
+  filters  : {
     query: string;
     users: any[];
   };
@@ -12,8 +12,8 @@ export interface IssueState {
 
 const initialState: IssueState = {
   boardData: {
-    blocks: {},
-    columns: {},
+    blocks     : {},
+    columns    : {},
     columnOrder: [],
   },
   filters: {
@@ -32,15 +32,15 @@ const boardSlice = createSlice({
     },
     fetchSuccess: (state, { payload }) => {
       state.boardData = payload;
-      state.status = fromInterface.State.IDLE;
+      state.status    = fromInterface.State.IDLE;
     },
     syncFilters: (state, action) => {
       state.filters = action.payload;
     },
     clear: (state) => {
       state.boardData = {
-        blocks: {},
-        columns: {},
+        blocks     : {},
+        columns    : {},
         columnOrder: [],
       };
       state.filters = {
@@ -59,11 +59,7 @@ const boardSlice = createSlice({
       };
     },
   },
-  extraReducers: {
-    // [updateBoardData.fulfilled.toString()]: (state, { payload }) => {
-    //     state.boardData = payload
-    // },
-  },
+  extraReducers: {},
 });
 
 export const {

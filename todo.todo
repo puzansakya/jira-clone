@@ -1,6 +1,7 @@
 Projects:
   jira clone:
     ☐ Style optimization
+    ☐ migrate card and columns to libs
     ☐ font optimization
     ☐ style extraction
     ✔ type mapping @done(23-09-05 20:36)

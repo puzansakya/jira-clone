@@ -1,24 +1,26 @@
   // libs
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useDisclosure } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as fromIssueTypeStore from '../../store/issue-type';
+import * as fromInterface from '../../ts';
 
   // UI
 import { IssueDetail } from 'ui';
 
+  // ROUTES
+import { RouteEnum } from '../../routes/routeEnum';
+
   // stores
-import * as fromCommentStore from '../../store/comment';
+import { useAppDispatch } from '../../store';
 import * as fromIssueStore from '../../store/board';
+import * as fromCommentStore from '../../store/comment';
 import * as fromPriorityStore from '../../store/priority';
 import * as fromStatusStore from '../../store/status';
 import * as fromUserStore from '../../store/user';
-import { RouteEnum } from '../../routes/routeEnum';
 
 export const IssueDetailPage = () => {
     // HOOKS
-  const dispatch                = useDispatch();
+  const dispatch                = useAppDispatch();
   const { id: selectedIssueId } = useParams();
   const navigate                = useNavigate();
 
@@ -53,7 +55,7 @@ export const IssueDetailPage = () => {
         dispatch(
           fromCommentStore.create({
             body   : comment,
-            issueId: selectedIssueId,
+            issueId: +(selectedIssueId + ''),
             userId : 4,
           })
         );
@@ -61,7 +63,7 @@ export const IssueDetailPage = () => {
       fetchInitialData={() => {
         dispatch(fromCommentStore.fetchComments(selectedIssueId));
       }}
-      updateComment={(comment: any) => {
+      updateComment={(comment: fromInterface.IComment) => {
         dispatch(
           fromCommentStore.update({
             ...comment,

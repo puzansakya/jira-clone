@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import * as fromInterface from '../../ts';
 
 export interface BoardState {
-    boardData: fromInterface.InitialData<fromInterface.Task>;
+    boardData: fromInterface.InitialData<fromInterface.IIssue>;
     filters: {
         query: string
         users: any[]
@@ -60,9 +60,6 @@ const boardSlice = createSlice({
         }
     },
     extraReducers: {
-        // [updateBoardData.fulfilled.toString()]: (state, { payload }) => {
-        //     state.boardData = payload
-        // },
     }
 });
 

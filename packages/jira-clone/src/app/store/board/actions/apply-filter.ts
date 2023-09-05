@@ -1,5 +1,6 @@
-import { fetchBoardData } from "..";
+import { fetchBoardData } from '..';
+import { AppDispatch } from '../..';
 
-export const applyFilter = (): any => (dispatch: any) => {
-    dispatch(fetchBoardData())
-}
+export const applyFilter = () => (dispatch: AppDispatch) => {
+  dispatch(fetchBoardData());
+};

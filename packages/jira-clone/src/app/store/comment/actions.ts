@@ -1,9 +1,10 @@
+import { AppDispatch } from '..';
 import { IComment } from '../../ts/models/comment';
 import { COMMENTS_API } from './api';
 import * as fromSlice from './slice';
 
 export const fetchComments: any =
-  (issueId: number) => async (dispatch: any, getState: any) => {
+  (issueId: number) => async (dispatch: AppDispatch) => {
     dispatch(fromSlice.fetchRequest());
 
     const response = await fetch(
@@ -14,10 +15,10 @@ export const fetchComments: any =
     dispatch(fromSlice.fetchSuccess(issues.data));
   };
 
-export const create: any =
-  (payload: IComment) => async (dispatch: any, getState: any) => {
+export const create =
+  (payload: IComment) => async (dispatch: AppDispatch) => {
     // fetch post
-    const response = await fetch(COMMENTS_API, {
+    await fetch(COMMENTS_API, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ export const create: any =
   };
 
 export const update: any =
-  (payload: IComment) => async (dispatch: any, getState: any) => {
+  (payload: IComment) => async (dispatch: AppDispatch) => {
     const response = await fetch(COMMENTS_API, {
       method: 'PUT',
       headers: {
@@ -40,10 +41,10 @@ export const update: any =
   };
 
 export const remove: any =
-  (commentId: number, issueId: number) =>
-  async (dispatch: any, getState: any) => {
-    const response = await fetch(`${COMMENTS_API}/${commentId}`, {
+  (commentId: number, issueId: number) => async (dispatch: AppDispatch) => {
+    await fetch(`${COMMENTS_API}/${commentId}`, {
       method: 'DELETE',
     });
+
     dispatch(fetchComments(issueId));
   };

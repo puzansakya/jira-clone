@@ -1,3 +1,3 @@
 import { PxInputText } from './PxInputText';
 
-export default PxInputText;
+export const InputText = PxInputText;

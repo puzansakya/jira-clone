@@ -1,5 +1,10 @@
 import { z } from 'zod';
 import { DropdownCollectionSchema, DropdownSchema } from './dropdown';
+import { IssueTypeSchema } from './issue-type';
+import { PrioritySchema } from './priorities';
+import { ProjectSchema } from './project';
+import { StatusSchema } from './status';
+import { UserSchema } from './user';
 
 export const IssueSchema = z.object({
   id             : z.number().optional(),
@@ -11,13 +16,15 @@ export const IssueSchema = z.object({
   timeSpent      : z.number().optional(),
   timeRemaining  : z.number().optional(),
 
-  projectId : z.number().optional().or(DropdownSchema),
-  typeId    : z.number().optional().or(DropdownSchema),
-  statusId  : z.number().optional().or(DropdownSchema),
-  priorityId: z.number().optional().or(DropdownSchema),
-  reporterId: z.number().optional().or(DropdownSchema),
-  assignees : z.array(z.number()).optional().or(DropdownCollectionSchema),
-
+  projectId : z.number().optional().or(ProjectSchema),
+  typeId    : z.number().optional().or(IssueTypeSchema),
+  statusId  : z.number().optional().or(StatusSchema),
+  priorityId: z.number().optional().or(PrioritySchema),
+  reporterId: z.number().optional().or(UserSchema),
+  assignees : z.array(z.number()).optional().or(UserSchema),
+  
+  type: IssueTypeSchema.optional(),
+  
   createdAt : z.string().optional(),
   modifiedAt: z.string().optional(),
   deletedAt : z.string().optional(),

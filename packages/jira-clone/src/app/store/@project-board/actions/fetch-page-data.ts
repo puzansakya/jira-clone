@@ -5,7 +5,7 @@ import * as fromStatusStore from "./../../status";
 import * as fromPriorityStore from "./../../priority";
 import * as fromTypeStore from "./../../issue-type";
 
-export const fetchPageData: any = (): any => (dispatch: AppDispatch) => {
+export const fetchPageData = () => (dispatch: AppDispatch) => {
     dispatch(fromStatusStore.fetchStatuses())
     dispatch(fromPriorityStore.fetchPriorities())
     dispatch(fromProjectBoardStore.fetchBoardData())

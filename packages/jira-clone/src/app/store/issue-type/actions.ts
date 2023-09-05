@@ -1,8 +1,9 @@
+import { AppDispatch } from '..';
 import { FETCH_ISSUE_TYPE } from './api';
 import * as fromSlice from './slice';
 
-export const fetchIssueTypes: any =
-  () => async (dispatch: any, getState: any) => {
+export const fetchIssueTypes =
+  () => async (dispatch: AppDispatch) => {
     dispatch(fromSlice.fetchRequest());
 
     const response = await fetch(FETCH_ISSUE_TYPE);

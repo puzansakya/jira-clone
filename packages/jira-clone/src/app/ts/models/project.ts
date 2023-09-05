@@ -17,6 +17,6 @@ export type IProject = z.infer<typeof ProjectSchema>;
 
 export const ProjecCollectionSchema = z.array(ProjectSchema);
 
-export type IProjectCategoryCollection = z.infer<
+export type IProjectCollection = z.infer<
   typeof ProjecCollectionSchema
 >;

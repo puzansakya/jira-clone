@@ -1,15 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import * as fromInterface from '../../ts';
-import { IComment } from '../../ts/models/comment';
 
 export interface ICommentState {
-  items: IComment[];
+  items : fromInterface.IComment[];
   status: fromInterface.State.IDLE | fromInterface.State.LOADING;
   loaded: boolean;
 }
 
 const initialState: ICommentState = {
-  items: [],
+  items : [],
   status: fromInterface.State.LOADING,
   loaded: false,
 };
@@ -22,7 +21,7 @@ const commentSlice = createSlice({
       state.status = fromInterface.State.LOADING;
     },
     fetchSuccess: (state, { payload }) => {
-      state.items = payload;
+      state.items  = payload;
       state.status = fromInterface.State.IDLE;
       state.loaded = true;
     },

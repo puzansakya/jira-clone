@@ -14,7 +14,7 @@ export * from './Components/Forms/InputDatePicker/InputDatePicker';
 export * from './Components/Forms/InputEditor/InputEditor';
 export * from './Components/Forms/InputEditorV2';
 export * from './Components/Forms/Select';
-export * from './Components/Forms/InputText/PxInputText';
+export * from './Components/Forms/InputText/InputText';
 export * from './Components/Forms/RenderWithLabelPosition/RenderWithLabelPosition';
 export * from './Components/NotFound/NotFound';
 export * from './Components/PageLoading/PageLoading';
