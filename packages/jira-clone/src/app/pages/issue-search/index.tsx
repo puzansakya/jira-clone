@@ -9,17 +9,15 @@ import {
   Link,
   List,
   ListItem,
-  Text,
+  Text
 } from '@chakra-ui/react';
 
 import { useMachine } from '@xstate/react';
 import { Link as ReachLink, useNavigate } from 'react-router-dom';
-import { DebouncedInput } from 'ui';
+import { InputText, TypeIcon } from 'ui';
 import { RouteEnum } from '../../routes/routeEnum';
-import { TypeIcon } from '../project-board/card';
-import { machine } from './machine';
 import * as fromInterface from './../../ts';
-import { InputText } from 'ui';
+import { machine } from './machine';
 
 export const IssueSearchPage = () => {
   const navigate = useNavigate();

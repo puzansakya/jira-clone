@@ -1,25 +1,24 @@
   // LIBS
-import { Box, Flex }                  from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { When }                       from 'react-if';
-import { useDispatch, useSelector }   from 'react-redux';
+import { When } from 'react-if';
+import { useDispatch, useSelector } from 'react-redux';
 
   // UI
-import { PageLoading } from 'ui';
+import { ColumnWrapper, PageLoading } from 'ui';
 
   // HOOKS
-import useDnd           from '../../../hooks/use-dnd';
-import useFlexGridMaker from '../../../hooks/use-flex-grid-maker';
+import useDnd from '../../../hooks/use-dnd';
+import { useFlexGridMaker } from '../../../hooks/use-flex-grid-maker';
+import { RouteEnum } from '../../../routes/routeEnum';
 
   // STORES
 import * as fromBoardReducers from '../../../store/board';
-import * as fromInterface     from '../../../ts';
+import * as fromInterface from '../../../ts';
 
   // COMPONENTS
-import ColumnWrapper from '../column-wrapper';
 
 const Board = ({ handleOpenIssueDetailModal }: any) => {
-  
   const data: any   = useSelector(fromBoardReducers.selectBoardData);
   const status: any = useSelector(fromBoardReducers.selectBoardStatus);
 
@@ -74,11 +73,11 @@ const Board = ({ handleOpenIssueDetailModal }: any) => {
                   const column = data.columns[columnId];
                   return (
                     <ColumnWrapper
-                      key                        = {column.id}
-                      column                     = {column}
-                      blockMap                   = {data.blocks}
-                      index                      = {index}
-                      handleOpenIssueDetailModal = {handleOpenIssueDetailModal}
+                      routeEnum = {RouteEnum}
+                      key       = {column.id}
+                      column    = {column}
+                      blockMap  = {data.blocks}
+                      index     = {index}
                     />
                   );
                 })}
