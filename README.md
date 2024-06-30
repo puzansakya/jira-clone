@@ -1,4 +1,4 @@
-# Puxan
+# Jira Clone
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
@@ -34,18 +34,25 @@ yarn storybook:ui
 npx nx serve jira-clone
 ```
 
-```
--[x] SETUP SUPERTEST
--[x] issue create
--[x] update issue position
--[ ] implement search
--[x] implement comment
--[x] project setting detail crud
--[x] status dropdown color code
--[x] issue detail loader
--[ ] font similarity
--[ ] style optimization
--[x] update project logo
+### Tech Stack
+- React
+- Redux 
+- Chakra Ui
+- X State (experimental)
+- Zustand
+- React Beautuful DND
+- React Router
 
+### Folder structure
+- Feature slice design (experimental)
 
-```
+### Features
+- Drag and drop issue
+- Create Issue
+- Update Issue
+- Update Project Setting
+
+## Run App
+- yarn 
+- yarn start:backend
+- yarn start:client
