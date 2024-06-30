@@ -34,6 +34,8 @@ yarn storybook:ui
 npx nx serve jira-clone
 ```
 
+![alt text](readme-doc/image.png)
+
 ### Tech Stack
 - React
 - Redux 
