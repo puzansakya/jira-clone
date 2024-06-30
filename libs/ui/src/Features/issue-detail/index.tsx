@@ -1,8 +1,7 @@
 // LIBS
-import React from 'react';
+import { CloseIcon, DeleteIcon } from '@chakra-ui/icons';
 import {
     Box,
-    Button,
     Divider,
     Flex,
     HStack,
@@ -12,23 +11,24 @@ import {
     ModalContent,
     ModalOverlay,
     Text,
-    VStack,
+    VStack
 } from '@chakra-ui/react';
-import {CloseIcon, DeleteIcon} from '@chakra-ui/icons';
+import React from 'react';
 
 // COMPONENTS
-import FormProvider from '../../components/forms/FormProvider/FormProvider';
 import ConnectForm from '../../components/forms/ConnectForm/ConnectForm';
-import Select from '../../components/forms/Select';
+import FormProvider from '../../components/forms/FormProvider/FormProvider';
+import InputEditable from '../../components/forms/InputEditable';
+import InputEditorV2 from '../../components/forms/InputEditorV2';
 import MultiSelect from '../../components/forms/InputMultiSelect';
 import PxInputText from '../../components/forms/InputText/PxInputText';
-import InputEditorV2 from '../../components/forms/InputEditorV2';
-import Watcher from './watcher';
-import InputEditable from '../../components/forms/InputEditable';
+import Select from '../../components/forms/Select';
 import TimeTracker from '../../components/forms/TimeTracker';
+import { CopyLinkButton, FeedbackButton } from '../../fsd/features';
 import Comment from '../comment';
-import {IssueDetailLoader} from './issue-detail-loader';
-import {formNameProperties} from './form-name-properties';
+import { formNameProperties } from './form-name-properties';
+import { IssueDetailLoader } from './issue-detail-loader';
+import Watcher from './watcher';
 
 interface IssueDetailProps {
     isOpen: boolean;
@@ -116,10 +116,10 @@ export const IssueDetail = (props: IssueDetailProps) => {
     if (loading) {
         return (
             <Modal size="5xl" isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay/>
+                <ModalOverlay />
                 <ModalContent>
                     <ModalBody py={4}>
-                        <IssueDetailLoader/>
+                        <IssueDetailLoader />
                     </ModalBody>
                 </ModalContent>
             </Modal>
@@ -128,7 +128,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
 
     return (
         <Modal size="5xl" isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay/>
+            <ModalOverlay />
             <ModalContent>
                 <ModalBody py={4}>
                     {/* RENDER BODY */}
@@ -140,22 +140,22 @@ export const IssueDetail = (props: IssueDetailProps) => {
                     >
                         <ConnectForm>
                             {(connectProps: any) => {
-                                return <Watcher {...connectProps} onSubmit={onSubmit}/>;
+                                return <Watcher {...connectProps} onSubmit={onSubmit} />;
                             }}
                         </ConnectForm>
 
                         <ConnectForm>
                             {({
-                                  control,
-                                  getValues,
-                                  setValue,
-                                  watch,
-                                  reset,
-                                  formState,
-                              }: any) => {
-                                const {errors} = formState;
+                                control,
+                                getValues,
+                                setValue,
+                                watch,
+                                reset,
+                                formState,
+                            }: any) => {
+                                const { errors } = formState;
 
-                                const inputProps = {control, errors};
+                                const inputProps = { control, errors };
 
                                 return (
                                     <>
@@ -170,40 +170,21 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                 required
                                             >
                                                 <Select.FormControl>
-                                                    <Select.IssueTypeComponent/>
-                                                    <Select.ErrorLabel/>
+                                                    <Select.IssueTypeComponent />
+                                                    <Select.ErrorLabel />
                                                 </Select.FormControl>
                                             </Select>
 
                                             <HStack spacing={2}>
-                                                <Button
-                                                    bg="white"
-                                                    size="sm"
-                                                    fontWeight="normal"
-                                                    fontSize="sm"
-                                                    onClick={() => {
-                                                        return null;
-                                                    }}
-                                                    borderRadius="sm"
-                                                >
-                                                    Give Feedback
-                                                </Button>
-                                                <Button
-                                                    bg="white"
-                                                    fontSize="sm"
-                                                    size="sm"
-                                                    fontWeight="normal"
-                                                    borderRadius="sm"
-                                                >
-                                                    Copy Link
-                                                </Button>
+                                               <FeedbackButton />
+                                                <CopyLinkButton />
                                                 <IconButton
                                                     bg="white"
                                                     size="sm"
                                                     fontWeight="normal"
                                                     fontSize="sm"
                                                     aria-label="delete"
-                                                    icon={<DeleteIcon/>}
+                                                    icon={<DeleteIcon />}
                                                 />
                                                 <IconButton
                                                     bg="white"
@@ -212,7 +193,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     fontSize="sm"
                                                     aria-label="close"
                                                     onClick={onClose}
-                                                    icon={<CloseIcon/>}
+                                                    icon={<CloseIcon />}
                                                 />
                                             </HStack>
                                         </Flex>
@@ -236,7 +217,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                             fontSize="24px"
                                                             fontWeight={500}
                                                         />
-                                                        <InputEditable.ErrorLabel/>
+                                                        <InputEditable.ErrorLabel />
                                                     </InputEditable.FormControl>
                                                 </InputEditable>
 
@@ -247,9 +228,9 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     errors={errors}
                                                 >
                                                     <InputEditorV2.FormControl>
-                                                        <InputEditorV2.FormLabel/>
-                                                        <InputEditorV2.Component/>
-                                                        <InputEditorV2.ErrorLabel/>
+                                                        <InputEditorV2.FormLabel />
+                                                        <InputEditorV2.Component />
+                                                        <InputEditorV2.ErrorLabel />
                                                     </InputEditorV2.FormControl>
                                                 </InputEditorV2>
 
@@ -270,11 +251,11 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     >
                                                         <Select.FormControl>
                                                             <Flex gap={2}>
-                                                                <Select.FormLabel/>
-                                                                <Select.HelperText/>
+                                                                <Select.FormLabel />
+                                                                <Select.HelperText />
                                                             </Flex>
-                                                            <Select.StatusComponent/>
-                                                            <Select.ErrorLabel/>
+                                                            <Select.StatusComponent />
+                                                            <Select.ErrorLabel />
                                                         </Select.FormControl>
                                                     </Select>
 
@@ -287,11 +268,11 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     >
                                                         <MultiSelect.FormControl>
                                                             <Flex gap={2}>
-                                                                <MultiSelect.FormLabel/>
-                                                                <MultiSelect.HelperText/>
+                                                                <MultiSelect.FormLabel />
+                                                                <MultiSelect.HelperText />
                                                             </Flex>
-                                                            <MultiSelect.Component/>
-                                                            <MultiSelect.ErrorLabel/>
+                                                            <MultiSelect.Component />
+                                                            <MultiSelect.ErrorLabel />
                                                         </MultiSelect.FormControl>
                                                     </MultiSelect>
 
@@ -304,11 +285,11 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     >
                                                         <Select.FormControl>
                                                             <Flex gap={2}>
-                                                                <Select.FormLabel/>
-                                                                <Select.HelperText/>
+                                                                <Select.FormLabel />
+                                                                <Select.HelperText />
                                                             </Flex>
-                                                            <Select.ReporterComponent/>
-                                                            <Select.ErrorLabel/>
+                                                            <Select.ReporterComponent />
+                                                            <Select.ErrorLabel />
                                                         </Select.FormControl>
                                                     </Select>
 
@@ -321,11 +302,11 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     >
                                                         <Select.FormControl>
                                                             <Flex gap={2}>
-                                                                <Select.FormLabel/>
-                                                                <Select.HelperText/>
+                                                                <Select.FormLabel />
+                                                                <Select.HelperText />
                                                             </Flex>
-                                                            <Select.PriorityComponent/>
-                                                            <Select.ErrorLabel/>
+                                                            <Select.PriorityComponent />
+                                                            <Select.ErrorLabel />
                                                         </Select.FormControl>
                                                     </Select>
 
@@ -337,15 +318,15 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                     >
                                                         <PxInputText.FormControl>
                                                             <Flex gap={2}>
-                                                                <PxInputText.FormLabel/>
-                                                                <PxInputText.HelperText/>
+                                                                <PxInputText.FormLabel />
+                                                                <PxInputText.HelperText />
                                                             </Flex>
                                                             <PxInputText.Component
                                                                 size="sm"
                                                                 color="brand.label"
                                                                 borderColor="gray.300"
                                                             />
-                                                            <PxInputText.ErrorLabel/>
+                                                            <PxInputText.ErrorLabel />
                                                         </PxInputText.FormControl>
                                                     </PxInputText>
 
@@ -362,7 +343,7 @@ export const IssueDetail = (props: IssueDetailProps) => {
                                                         {...inputProps}
                                                     />
                                                 </VStack>
-                                                <Divider borderColor="gray.400" mt={5}/>
+                                                <Divider borderColor="gray.400" mt={5} />
                                                 <Text> Create at 6 months ago</Text>
                                                 <Text> Updated at 6 months ago</Text>
                                             </Box>

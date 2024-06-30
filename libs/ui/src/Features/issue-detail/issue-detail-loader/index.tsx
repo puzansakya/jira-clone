@@ -3,8 +3,7 @@ import {
   Flex,
   HStack,
   Skeleton,
-  SkeletonCircle,
-  Text,
+  SkeletonCircle
 } from '@chakra-ui/react';
 
 export const IssueDetailLoader = () => {
